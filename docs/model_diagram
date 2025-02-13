@@ -1,0 +1,73 @@
+@startuml
+' Definizione delle classi principali
+
+class Casella {
+    - int x
+    - int y
+    - int livelloDanno
+    - int resistenzaMax
+    - boolean occupata
+    - boolean colpita
+    + subisciDanno(int danno)
+    + isDistrutta() : boolean
+}
+
+class Nave {
+    - List<Casella> caselle
+    + isAffondata() : boolean
+}
+
+class Griglia {
+    - Casella[][] caselle
+    - List<Nave> navi
+    + posizionaNave(Nave n, int x, int y, boolean orizzontale)
+    + applicaDanno(int x, int y, Proiettile p)
+    + tutteNaviAffondate() : boolean
+}
+
+class Giocatore {
+    - Griglia grigliaPersonale
+    - Griglia grigliaAttacco
+    + spara(int x, int y, Proiettile p)
+}
+
+class Proiettile {
+    - int danno
+    - boolean distruggeIstantaneamente
+}
+
+class ProiettileNormale {
+    + danno = 1
+}
+
+class ProiettilePotente {
+    + danno = 3
+}
+
+class ProiettileSpeciale {
+    + distruggeIstantaneamente = true
+}
+
+class BattagliaNavale {
+    - Giocatore giocatore1
+    - Giocatore giocatore2
+    - int turno
+    + iniziaPartita()
+    + cambiaTurno()
+    + verificaVittoria()
+}
+
+' Relazioni tra le classi
+Casella *-- Nave : occupata da
+Nave *-- Casella : composta da
+Griglia *-- Casella : contiene
+Griglia *-- Nave : contiene
+Giocatore *-- Griglia : griglia personale
+Giocatore *-- Griglia : griglia attacco
+BattagliaNavale *-- Giocatore : gestisce
+Proiettile <|-- ProiettileNormale
+Proiettile <|-- ProiettilePotente
+Proiettile <|-- ProiettileSpeciale
+Griglia <-- Giocatore : possiede
+Proiettile --* Casella : colpisce
+@enduml
