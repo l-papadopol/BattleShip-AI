@@ -45,12 +45,12 @@ public class Casella {
 	}
 
 	public void setLivelloDanno(int livelloDanno) {
-		if(livelloDanno >=0 && livelloDanno <=4) {
-			this.livelloDanno = livelloDanno;
-		} else {
-			
-		}
+	    if (livelloDanno < 0 || livelloDanno > resistenzaMax) {
+	        throw new IllegalArgumentException("Il livello di danno deve essere compreso tra 0 e " + resistenzaMax);
+	    }
+	    this.livelloDanno = livelloDanno;
 	}
+
 
 	public int getResistenzaMax() {
 		return resistenzaMax;
