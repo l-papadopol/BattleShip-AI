@@ -1,39 +1,43 @@
 @startuml
-' Definizione delle classi principali
 
+' Definizione delle classi principali
 class Casella {
-    - int x
-    - int y
+    - Point coordinata
     - int livelloDanno
     - int resistenzaMax
     - boolean occupata
     - boolean colpita
-    + subisciDanno(int danno)
-    + isDistrutta() : boolean
+    + setLivelloDanno(int livelloDanno)
+    + getCoordinata() : Point
 }
 
 class Nave {
     - List<Casella> caselle
-    + isAffondata() : boolean
+    + eAffondata() : boolean
+    + getLunghezza() : int
 }
 
 class Griglia {
+    - int dimensione
     - Casella[][] caselle
     - List<Nave> navi
-    + posizionaNave(Nave n, int x, int y, boolean orizzontale)
-    + applicaDanno(int x, int y, Proiettile p)
+    + posizionaNave(Nave n, Point coordinata, boolean orizzontale)
+    + applicaDanno(Point coordinata, Proiettile p)
     + tutteNaviAffondate() : boolean
 }
 
 class Giocatore {
+    - String nome
     - Griglia grigliaPersonale
     - Griglia grigliaAttacco
-    + spara(int x, int y, Proiettile p)
+    + posizionaNave(Nave nave, Point coordinata, boolean orizzontale)
+    + spara(Point coordinata, Proiettile p, Giocatore avversario)
+    + haPerso() : boolean
 }
 
-class Proiettile {
+abstract class Proiettile {
     - int danno
-    - boolean distruggeIstantaneamente
+    + getDanno() : int
 }
 
 class ProiettileNormale {
@@ -45,29 +49,32 @@ class ProiettilePotente {
 }
 
 class ProiettileSpeciale {
-    + distruggeIstantaneamente = true
+    + danno = 4
 }
 
 class BattagliaNavale {
     - Giocatore giocatore1
     - Giocatore giocatore2
     - int turno
-    + iniziaPartita()
+    + eseguiTurno(int x, int y, Proiettile p) : boolean
     + cambiaTurno()
-    + verificaVittoria()
+    + verificaVincitore() : String
+}
+
+class CantiereNavale {
+    + static Nave creaNave(int lunghezza, Point origine, boolean orizzontale)
 }
 
 ' Relazioni tra le classi
-Casella *-- Nave : occupata da
 Nave *-- Casella : composta da
-Griglia *-- Casella : contiene
-Griglia *-- Nave : contiene
-Giocatore *-- Griglia : griglia personale
-Giocatore *-- Griglia : griglia attacco
-BattagliaNavale *-- Giocatore : gestisce
+Griglia o-- Casella : contiene
+Griglia o-- Nave : contiene
+Giocatore o-- Griglia : ha
+BattagliaNavale *-- Giocatore : composta da
 Proiettile <|-- ProiettileNormale
 Proiettile <|-- ProiettilePotente
 Proiettile <|-- ProiettileSpeciale
-Griglia <-- Giocatore : possiede
-Proiettile --* Casella : colpisce
+Proiettile --> Casella : colpisce
+CantiereNavale ..> Nave : crea
+
 @enduml

@@ -23,7 +23,7 @@ class TestNave {
 	        );
 
 	        Nave nave = new Nave(caselle);
-	        assertFalse(nave.eAffondata(), "La nave non dovrebbe essere affondata se alcune caselle non hanno danno massimo.");
+	        assertFalse(nave.isAffondata(), "La nave non dovrebbe essere affondata se alcune caselle non hanno danno massimo.");
 	    }
 
 	    @Test
@@ -35,7 +35,7 @@ class TestNave {
 	        );
 
 	        Nave nave = new Nave(caselle);
-	        assertTrue(nave.eAffondata(), "La nave dovrebbe essere affondata se tutte le caselle hanno danno massimo.");
+	        assertTrue(nave.isAffondata(), "La nave dovrebbe essere affondata se tutte le caselle hanno danno massimo.");
 	    }
 
 	    @Test
@@ -47,7 +47,7 @@ class TestNave {
 	        );
 
 	        Nave nave = new Nave(caselle);
-	        assertFalse(nave.eAffondata(), "La nave non dovrebbe essere affondata se almeno una casella non ha il danno massimo.");
+	        assertFalse(nave.isAffondata(), "La nave non dovrebbe essere affondata se almeno una casella non ha il danno massimo.");
 	    }
 
 	    @Test
@@ -55,6 +55,6 @@ class TestNave {
 	        List<Casella> caselle = List.of();
 
 	        Nave nave = new Nave(caselle);
-	        assertTrue(nave.eAffondata(), "Una nave senza caselle dovrebbe essere considerata affondata.");
+	        assertTrue(nave.isAffondata(), "Una nave senza caselle dovrebbe essere considerata affondata.");
 	    }
 	}

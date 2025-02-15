@@ -14,7 +14,7 @@ public class Nave {
 	}
 	
 	// Restituisce true se tutte le caselle di cui si compone la nave hanno raggiunto il danno massimo (affondata!!!)
-	public boolean eAffondata() {
+	public boolean isAffondata() {
 	    return caselle.stream().allMatch(casella -> casella.getLivelloDanno() >= casella.getResistenzaMax());
 	}
 

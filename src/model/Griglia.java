@@ -25,9 +25,10 @@ public class Griglia {
 		}
 	}
 
-	public boolean posizionaNave(Nave nave, int x, int y, boolean orizzontale) {
+	public boolean posizionaNave(Nave nave, Point coordinata, boolean orizzontale) {
 		List<Casella> caselleNave = new ArrayList<>();
-
+		int x = coordinata.x;
+		int y = coordinata.y;
 		for (int i = 0; i < nave.getLunghezza(); i++) {
 			int xCoord = orizzontale ? x + i : x;
 			int yCoord = orizzontale ? y : y + i;
@@ -49,7 +50,10 @@ public class Griglia {
 		return true;
 	}
 
-	public boolean applicaDanno(int x, int y, Proiettile proiettile) {
+	public boolean applicaDanno(Point coordinata, Proiettile proiettile) {
+		int x = coordinata.x;
+		int y = coordinata.y;
+		
 		if (x < 0 || y < 0 || x >= dimensione || y >= dimensione) {
 			throw new IllegalArgumentException("Coordinate fuori dai limiti della griglia.");
 		}
@@ -76,12 +80,22 @@ public class Griglia {
 
 	public boolean tutteNaviAffondate() {
 		for (Nave nave : navi) {
-			if (!nave.eAffondata()) {
+			if (!nave.isAffondata()) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	public int getDimensione() {
+		return dimensione;
+	}
+	
+	public List<Nave> getNavi() {
+	    return navi;
+	}
+
+
+	
 
 }

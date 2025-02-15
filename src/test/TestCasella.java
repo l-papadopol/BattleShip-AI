@@ -52,13 +52,13 @@ class TestCasella {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             casella.setLivelloDanno(-1);
         });
-        assertEquals("Il livello di danno non può essere negativo", exception.getMessage());
+        assertEquals("Fuori range", exception.getMessage());
 
         // Test valore superiore alla resistenza massima
         exception = assertThrows(IllegalArgumentException.class, () -> {
             casella.setLivelloDanno(5);
         });
-        assertEquals("Il livello di danno non può essere > 4", exception.getMessage());
+        assertEquals("Fuori range", exception.getMessage());
     }
 
     @Test
