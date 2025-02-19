@@ -15,6 +15,7 @@ class Nave {
     - List<Casella> caselle
     + eAffondata() : boolean
     + getLunghezza() : int
+    + getCaselle() : int
 }
 
 class Griglia {

@@ -1,5 +1,5 @@
 /*
- * CantiereNavale.java costruisce navi di lunghezza ed orientamento determinabile da un punto di origine
+ * CantiereNavale.java costruisce navi di lunghezza ed orientamento determinato da un punto di origine
  * 
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */

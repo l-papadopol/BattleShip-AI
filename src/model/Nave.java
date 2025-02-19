@@ -18,10 +18,15 @@ public class Nave {
 	    return caselle.stream().allMatch(casella -> casella.getLivelloDanno() >= casella.getResistenzaMax());
 	}
 
+	// Restituisce la lunghezza della nave ovvero il numero delle caselle che occupa
 	public int getLunghezza() {
 		return caselle.size();
 	}
 
+	// Restituisce una lista contenete le caselle che compongono la nave
+	public List<Casella> getCaselle() {
+	    return caselle;
+	}
 	
 
 }

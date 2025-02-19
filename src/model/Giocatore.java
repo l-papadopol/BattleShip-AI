@@ -14,17 +14,19 @@ public class Giocatore {
     public Giocatore(String nome, int dimensioneGriglia) {
         this.nome = nome;
         this.grigliaPersonale = new Griglia(dimensioneGriglia);
-        this.grigliaAttacco = new Griglia(dimensioneGriglia);
     }
 
+    // Restituisce il nome del giocatore
     public String getNome() {
         return nome;
     }
 
+    // Restituisce la grisglia sulla quale il giocatore ha posizionato le sue navi
     public Griglia getGrigliaPersonale() {
         return grigliaPersonale;
     }
 
+    // Restituisce la griglia dove il giocatore spara e memorizza i colpi andati a vuoto oppure a segno
     public Griglia getGrigliaAttacco() {
         return grigliaAttacco;
     }
@@ -45,6 +47,7 @@ public class Giocatore {
     	int y = coordinata.y;
     	
         boolean colpito = avversario.getGrigliaPersonale().applicaDanno(coordinata, proiettile);
+        this.grigliaAttacco.applicaDanno(coordinata, proiettile); // Se la casella è vuota non importa, verrà marchiato come colpo a vuoto
 
         if (colpito) {
             System.out.println(nome + " ha colpito una nave in (" + x + "," + y + ")!");

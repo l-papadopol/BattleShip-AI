@@ -60,8 +60,9 @@ public class Griglia {
 
 		Casella casella = caselle[x][y];
 
-		// Nessuna nave colpita se non c'è una nave ad occupare la casella
+		// Nessuna nave colpita se non c'è una nave ad occupare la casella ma la marco come colpita (colpo a vuoto)
 		if (!casella.getOccupata()) {
+			casella.setColpita(true);
 			return false;
 		}else if (casella.getLivelloDanno() >= casella.getResistenzaMax()) {
 			return false;
