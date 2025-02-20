@@ -14,6 +14,7 @@ public class Giocatore {
     public Giocatore(String nome, int dimensioneGriglia) {
         this.nome = nome;
         this.grigliaPersonale = new Griglia(dimensioneGriglia);
+        this.grigliaAttacco = new Griglia(dimensioneGriglia);
     }
 
     // Restituisce il nome del giocatore

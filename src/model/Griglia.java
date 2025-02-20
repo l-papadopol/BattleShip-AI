@@ -26,30 +26,34 @@ public class Griglia {
 	}
 
 	public boolean posizionaNave(Nave nave, Point coordinata, boolean orizzontale) {
-		List<Casella> caselleNave = new ArrayList<>();
-		int x = coordinata.x;
-		int y = coordinata.y;
-		for (int i = 0; i < nave.getLunghezza(); i++) {
-			int xCoord = orizzontale ? x + i : x;
-			int yCoord = orizzontale ? y : y + i;
+	    List<Casella> caselleNave = new ArrayList<>();
+	    int x = coordinata.x;
+	    int y = coordinata.y;
+	    for (int i = 0; i < nave.getLunghezza(); i++) {
+	        int xCoord = orizzontale ? x + i : x;
+	        int yCoord = orizzontale ? y : y + i;
 
-			// La nave non deve uscire dai bordi dell'area di gioco
-			if (xCoord >= dimensione || yCoord >= dimensione || caselle[xCoord][yCoord].getOccupata()) {
-				throw new IllegalArgumentException("Posizionamento nave non valido: fuori dai limiti o casella già occupata.");
-			}
+	        // La nave non deve uscire dai bordi dell'area di gioco
+	        if (xCoord >= dimensione || yCoord >= dimensione || caselle[xCoord][yCoord].getOccupata()) {
+	            throw new IllegalArgumentException("Posizionamento nave non valido: fuori dai limiti o casella già occupata.");
+	        }
+	        caselleNave.add(caselle[xCoord][yCoord]);
+	    }
 
-			caselleNave.add(caselle[xCoord][yCoord]);
-		}
+	    // Aggiorniamo la nave passata con le caselle effettivamente presenti nella griglia
+	    nave.getCaselle().clear();
+	    nave.getCaselle().addAll(caselleNave);
 
-		// Assegnio le caselle come elementi di una nave e aggiorno l'area di gioco
-		for (Casella casella : caselleNave) {
-			casella.setOccupata(true);
-		}
+	    // Impostiamo le caselle come occupate nella griglia
+	    for (Casella casella : caselleNave) {
+	        casella.setOccupata(true);
+	    }
 
-		navi.add(nave);
-		return true;
+	    navi.add(nave);
+	    return true;
 	}
 
+	
 	public boolean applicaDanno(Point coordinata, Proiettile proiettile) {
 		int x = coordinata.x;
 		int y = coordinata.y;
