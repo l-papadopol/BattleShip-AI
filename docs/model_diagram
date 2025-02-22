@@ -25,6 +25,7 @@ class Griglia {
     + posizionaNave(Nave n, Point coordinata, boolean orizzontale)
     + applicaDanno(Point coordinata, Proiettile p)
     + tutteNaviAffondate() : boolean
+    + getCaselle: Casella [][]
 }
 
 class Giocatore {
