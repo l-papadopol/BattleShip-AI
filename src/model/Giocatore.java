@@ -1,5 +1,5 @@
 /*
- * Giocatore.java modello il giocatore
+ * Giocatore.java modello il giocatore e gli assegno gli oggetti che ha
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package model;
@@ -8,6 +8,8 @@ import java.awt.Point;
 
 public class Giocatore {
     private String nome;
+    private int proiettiliSpeciali = 3;
+    private int proiettiliPotenti = 5;
     private Griglia grigliaPersonale;
     private Griglia grigliaAttacco;
 
@@ -44,24 +46,55 @@ public class Giocatore {
 
     // Spara sulla griglia dell'avversario
     public boolean spara(Point coordinata, Proiettile proiettile, Giocatore avversario) {
-    	int x = coordinata.x;
-    	int y = coordinata.y;
-    	
+        // Applica il danno sulla griglia personale dell'avversario
         boolean colpito = avversario.getGrigliaPersonale().applicaDanno(coordinata, proiettile);
-        this.grigliaAttacco.applicaDanno(coordinata, proiettile); // Se la casella è vuota non importa, verrà marchiato come colpo a vuoto
-
+        
         if (colpito) {
-            System.out.println(nome + " ha colpito una nave in (" + x + "," + y + ")!");
+            // Se il tiro ha colpito, copia il livello di danno dalla griglia personale dell'avversario
+            int danno = avversario.getGrigliaPersonale().getCaselle()[coordinata.x][coordinata.y].getLivelloDanno();
+            Casella cellaAttacco = this.grigliaAttacco.getCaselle()[coordinata.x][coordinata.y];
+            cellaAttacco.setLivelloDanno(danno);
+            cellaAttacco.setColpita(true);
         } else {
-            System.out.println(nome + " ha mancato il bersaglio in (" + x + "," + y + ").");
+            // Se il tiro è a vuoto imposta solo il flag "colpita"
+            this.grigliaAttacco.applicaDanno(coordinata, proiettile);
         }
-
         return colpito;
     }
+
 
     // Verifica se il giocatore ha perso (tutte le navi affondate)
     public boolean haPerso() {
         return grigliaPersonale.tutteNaviAffondate();
     }
 
+    // Restituisce una stringa che contiene il numero di proiettili potenti
+    public int getProiettiliPotenti(){
+    	return this.proiettiliPotenti;
+    }
+    
+    // Restituisce una stringa che contiene il numero di proiettili speciali
+    public int getProiettiliSpeciali(){
+    	return this.proiettiliSpeciali;
+    }
+    
+    // Imposta la quantità di proiettili potenti disponibili
+    public void setProiettiliPotenti(int proiettiliPotenti) {
+    	this.proiettiliPotenti = proiettiliPotenti;
+    }
+    
+    // Imposta la quantità di proiettili speciali disponibili
+    public void setProiettiliSpeciali(int proiettiliSpeciali) {
+    	this.proiettiliSpeciali = proiettiliSpeciali;
+    }
+    
+    // Decremente di un unità la quantità di proiettili potenti disponibile
+    public void decProiettiliPotenti() {
+    	this.proiettiliPotenti--;
+    }
+    
+    // Decremente di un unità la quantità di proiettili speciali disponibile
+    public void decProiettiliSpeciali() {
+    	this.proiettiliSpeciali--;
+    }
 }

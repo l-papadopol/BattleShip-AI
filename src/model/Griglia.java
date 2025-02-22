@@ -25,6 +25,7 @@ public class Griglia {
 		}
 	}
 
+	// Posiziono una nave nella griglia stando bene attento che non esca fuori.
 	public boolean posizionaNave(Nave nave, Point coordinata, boolean orizzontale) {
 	    List<Casella> caselleNave = new ArrayList<>();
 	    int x = coordinata.x;
@@ -40,11 +41,9 @@ public class Griglia {
 	        caselleNave.add(caselle[xCoord][yCoord]);
 	    }
 
-	    // Aggiorniamo la nave passata con le caselle effettivamente presenti nella griglia
 	    nave.getCaselle().clear();
 	    nave.getCaselle().addAll(caselleNave);
 
-	    // Impostiamo le caselle come occupate nella griglia
 	    for (Casella casella : caselleNave) {
 	        casella.setOccupata(true);
 	    }
@@ -53,7 +52,7 @@ public class Griglia {
 	    return true;
 	}
 
-	
+	// Danneggia una casella che compone la nave oppure marchia come colpo andato a vuoto un colpo nel mare
 	public boolean applicaDanno(Point coordinata, Proiettile proiettile) {
 		int x = coordinata.x;
 		int y = coordinata.y;
@@ -83,6 +82,7 @@ public class Griglia {
 		return true;
 	}
 
+	// Restituisce true se tutte le navi sono affondate oppure false
 	public boolean tutteNaviAffondate() {
 		for (Nave nave : navi) {
 			if (!nave.isAffondata()) {
@@ -92,13 +92,21 @@ public class Griglia {
 		return true;
 	}
 
+	// Quanto è grande la griglia quadrata???
 	public int getDimensione() {
 		return dimensione;
 	}
 	
+	// Restituisce le navi
 	public List<Nave> getNavi() {
 	    return navi;
 	}
+	
+	// Restituisce l'array bidimensionale di caselle che compone la griglia, utile per la text user interface
+	public Casella[][] getCaselle() {
+	    return caselle;
+	}
+
 
 
 	

@@ -30,11 +30,23 @@ class Griglia {
 
 class Giocatore {
     - String nome
+    - int proiettiliSpeciali
+    - int proiettiliPotenti
     - Griglia grigliaPersonale
     - Griglia grigliaAttacco
+    + getNome : String
+    + getGrigliaPersonale : Griglia
+    + getGrigliaAttacco : Griglia
     + posizionaNave(Nave nave, Point coordinata, boolean orizzontale)
     + spara(Point coordinata, Proiettile p, Giocatore avversario)
     + haPerso() : boolean
+    + getProiettiliPotenti : int
+    + getProiettiliSpeciali : int
+    + setProiettiliPotenti(int proiettiliPotenti)
+    + setProiettiliSpeciali(int proiettiliSpeciali)
+    + decProiettiliPotenti()
+    + decProiettiliSpeciali()
+
 }
 
 abstract class Proiettile {
