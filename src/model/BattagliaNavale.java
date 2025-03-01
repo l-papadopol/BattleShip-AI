@@ -6,7 +6,7 @@ package model;
 
 import java.awt.Point;
 
-public class BattagliaNavale {
+public class BattagliaNavale implements Model {
     private Giocatore giocatore1;
     private Giocatore giocatore2;
     private Giocatore giocatoreCorrente;

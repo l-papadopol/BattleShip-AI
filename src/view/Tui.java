@@ -1,40 +1,38 @@
+/*
+ * 	Tui.java è l'interfaccia utente testuale
+ *  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
+ */
 package view;
 
+import java.awt.Point;
 import java.util.Scanner;
 import model.Casella;
 import model.Griglia;
 
-public class Tui {
+public class Tui implements View {
     private Scanner scanner;
     
     public Tui() {
         scanner = new Scanner(System.in);
     }
     
-    // Mostra un messaggio all'utente
+    @Override
     public void mostraMessaggio(String message) {
         System.out.println(message);
     }
     
-    // Richiede un input testuale all'utente
+    @Override
     public String prompt(String message) {
         System.out.print(message);
         return scanner.nextLine();
     }
     
-    // Chiude lo scanner
-    public void close() {
+    @Override
+    public void chiudi() {
         scanner.close();
     }
     
-    /*
-     * Stampa la griglia usando simboli per rappresentare lo stato di ogni casella:
-     * - '.' per acqua non colpita.
-     * - 'o' per tiro a vuoto (colpito ma nessun danno).
-     * - '#' per una nave intatta (griglia personale).
-     * - '¼', '½', '¾' per una nave parzialmente danneggiata.
-     * - 'X' per una casella di nave affondata (danno massimo).
-     */
+    @Override
     public void stampa(Griglia griglia) {
         int dim = griglia.getDimensione();
         Casella[][] caselle = griglia.getCaselle();
@@ -60,7 +58,6 @@ public class Tui {
                 Casella casella = caselle[x][y];
                 char simbolo;
                 if (casella.getOccupata()) {
-                    // Visualizza lo stato della nave nella griglia personale
                     int danno = casella.getLivelloDanno();
                     int resistenza = casella.getResistenzaMax();
                     if (danno == 0) {
@@ -98,5 +95,46 @@ public class Tui {
             System.out.println();
         }
     }
+    
+    @Override
+    public Point leggiCoordinate(String message, int dim) {
+        int x = -1, y = -1;
+        boolean valid = false;
+        while (!valid) {
+            String input = prompt(message);
+            String[] tokens = input.trim().split("\\s+");
+            if (tokens.length != 2) {
+                mostraMessaggio("Formato non valido. Inserisci due numeri separati da uno spazio.");
+                continue;
+            }
+            try {
+                x = Integer.parseInt(tokens[0]);
+                y = Integer.parseInt(tokens[1]);
+                if (x < 0 || x >= dim || y < 0 || y >= dim) {
+                    mostraMessaggio("Le coordinate devono essere comprese tra 0 e " + (dim - 1));
+                    continue;
+                }
+                valid = true;
+            } catch (NumberFormatException e) {
+                mostraMessaggio("Inserisci numeri validi.");
+            }
+        }
+        return new Point(x, y);
+    }
+    
+    @Override
+    public boolean leggiOrientamento(String message) {
+        while (true) {
+            String input = prompt(message);
+            if (input.trim().equalsIgnoreCase("O")) {
+                return true;
+            } else if (input.trim().equalsIgnoreCase("V")) {
+                return false;
+            } else {
+                mostraMessaggio("Inserisci un orientamento valido: O per orizzontale o V per verticale.");
+            }
+        }
+    }
 }
+
 
