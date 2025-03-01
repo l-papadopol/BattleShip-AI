@@ -1,3 +1,7 @@
+/*
+ * TestGriglia.java test per verificare se la griglia funziona
+ * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
+ */
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +17,8 @@ public class TestGriglia {
         Griglia griglia = new Griglia(10);
 
         Nave nave = CantiereNavale.creaNave(3, new Point(0, 0), true);
-        boolean placed = griglia.posizionaNave(nave, new Point(0, 0), true);
-        assertTrue(placed, "La nave deve essere posizionata correttamente");
+        boolean isPosizionata = griglia.posizionaNave(nave, new Point(0, 0), true);
+        assertTrue(isPosizionata, "La nave deve essere posizionata correttamente");
         assertTrue(griglia.getNavi().contains(nave), "La griglia deve contenere la nave posizionata");
     }
     
@@ -49,7 +53,7 @@ public class TestGriglia {
     @Test
     public void testTutteNaviAffondate() {
         Griglia griglia = new Griglia(10);
-        assertTrue(griglia.tutteNaviAffondate(), "Una griglia priva di navi ha tutte le navi affondate");
+        assertTrue(griglia.tutteNaviAffondate(), "Una griglia priva di navi ha tutte le navi affondate poichè il gioco non comincia senza navi!!!");
     }
 }
 
