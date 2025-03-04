@@ -94,4 +94,13 @@ public class Messaggi {
     public static String pcPosizionamentoNavi() {
         return "Il PC sta posizionando le proprie navi...";
     }
+    
+    public static String inserisciCoordinatePartenza() {
+        return "Inserisci coordinate di partenza (x y): ";
+    }
+
+    public static String inserisciOrientamento() {
+        return "Inserisci orientamento (O per orizzontale, V per verticale): ";
+    }
+
 }

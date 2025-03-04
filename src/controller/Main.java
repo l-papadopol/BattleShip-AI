@@ -7,6 +7,7 @@ package controller;
 import model.BattagliaNavale;
 import model.Giocatore;
 import model.Model;
+import view.Gui;
 import view.Tui;
 import view.View;
 import java.util.Scanner;
@@ -18,27 +19,33 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Inserisci il nome del giocatore:");
         String nome = scanner.nextLine();
-        Giocatore player1 = new Giocatore(nome, 10);
-        Giocatore player2 = new Giocatore("PC", 10);
+        Giocatore giocatore1 = new Giocatore(nome, 10);
+        Giocatore giocatore2 = new Giocatore("PC", 10);
+        
+        // Richiedo anche il livello di difficoltà per il PC
+        System.out.println("Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile");
+        int difficolta = scanner.nextInt();
+        scanner.nextLine();
         
         // Inizializzo il modello della battaglia navale
-        Model model = new BattagliaNavale(player1, player2);
+        Model model = new BattagliaNavale(giocatore1, giocatore2);
         
         // Chiedo all'utente quale interfaccia utilizzare
         System.out.println("Scegli interfaccia: 1 = TUI, 2 = GUI");
         int scelta = scanner.nextInt();
         scanner.nextLine();
         
+        // Lancio la TUI o la GUI a seconda di cosa l'utente sceglie
         View view;
         if (scelta == 1) {
             view = new Tui();
         } else {
-            // STUP, lancia la view->GUI
-        	view = new Tui();
+        	view = new Gui();
         }
         
+        
         // Avvio il controller
-        Controller controller = new ControllerGioco(model, view);
+        Controller controller = new ControllerGioco(model, view, difficolta);
         controller.gioca();
         
         scanner.close();
