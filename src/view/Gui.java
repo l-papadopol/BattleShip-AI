@@ -1,5 +1,5 @@
 /**
- * Gui.java: Implementazione della view grafica per Battaglia Navale.
+ * Implementazione della view grafica per Battaglia Navale.
  * La classe utilizza due pannelli per le griglie:
  *  - personalGridPanel: visualizza la griglia personale (a sinistra)
  *  - attackGridPanel: visualizza la griglia d'attacco (a destra)
@@ -15,61 +15,78 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
 
-import model.Griglia;
+import model.Grid;
 
-public class Gui implements View {
+public class Gui implements ViewInterface {
     private JFrame frame;
-    private GridPanel grigliaPersonale;
-    private GridPanel grigliaAttacco;
+    private GridPanel personalGrid;
+    private GridPanel attackGrid;
     private JTextArea outputArea;
     private JTextField inputArea;
     
-    // Flag per capire quale griglia aggiornare in stampa()
-    private boolean flagGrigliaPersonale = false;
-    private boolean flagGrigliaAttacco = false;
+    // Flag per capire quale griglia aggiornare in gridDrawing()
+    private boolean personalGridFlag = false;
+    private boolean attackGridFlag = false;
 
+    /*
+     * Disegno la GUI
+     */
     public Gui() {
         try {
             SwingUtilities.invokeAndWait(() -> {
+            	
+            	/*
+            	 * Divido la finestra
+            	 */
                 frame = new JFrame("Battaglia Navale");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLayout(new BorderLayout(10, 10));
 
-                // Pannello superiore: contiene le due griglie
-                JPanel pannelloSuperiore = new JPanel(new GridLayout(1, 2, 10, 10));
-                pannelloSuperiore.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                /*
+                 * Popolo il pannello superiore
+                 */
+                JPanel upperPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+                upperPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
                 // Contenitore per la griglia personale
-                JPanel contenitoreGrigliaPersonale = new JPanel(new BorderLayout());
-                contenitoreGrigliaPersonale.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                JLabel etichettaGrigliaPersonale = new JLabel("Giocatore", SwingConstants.CENTER);
-                contenitoreGrigliaPersonale.add(etichettaGrigliaPersonale, BorderLayout.NORTH);
-                grigliaPersonale = new GridPanel();
-                contenitoreGrigliaPersonale.add(grigliaPersonale, BorderLayout.CENTER);
-
+                JPanel personalGridContainer = new JPanel(new BorderLayout());
+                personalGridContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                
                 // Contenitore per la griglia dei colpi sparati
-                JPanel contenitoreGrigliaAttacco = new JPanel(new BorderLayout());
-                contenitoreGrigliaAttacco.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                JLabel etichettaGrigliaAttacco = new JLabel("Colpi sparati", SwingConstants.CENTER);
-                contenitoreGrigliaAttacco.add(etichettaGrigliaAttacco, BorderLayout.NORTH);
-                grigliaAttacco = new GridPanel();
-                contenitoreGrigliaAttacco.add(grigliaAttacco, BorderLayout.CENTER);
+                JPanel attackGridContainer = new JPanel(new BorderLayout());
+                attackGridContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-                pannelloSuperiore.add(contenitoreGrigliaPersonale);
-                pannelloSuperiore.add(contenitoreGrigliaAttacco);
-                frame.add(pannelloSuperiore, BorderLayout.NORTH);
+                 // Metto le due griglie, personale e di attacco nei rispettivi contenitori con le relative etichette
+                JLabel personalGridCaption = new JLabel("Giocatore", SwingConstants.CENTER);
+                personalGridContainer.add(personalGridCaption, BorderLayout.NORTH);
+                personalGrid = new GridPanel();
+                personalGridContainer.add(personalGrid, BorderLayout.CENTER);
 
-                // Area centrale: output dei messaggi
+                JLabel attackGridCaption = new JLabel("Colpi sparati", SwingConstants.CENTER);
+                attackGridContainer.add(attackGridCaption, BorderLayout.NORTH);
+                attackGrid = new GridPanel();
+                attackGridContainer.add(attackGrid, BorderLayout.CENTER);
+
+                upperPanel.add(personalGridContainer);
+                upperPanel.add(attackGridContainer);
+                frame.add(upperPanel, BorderLayout.NORTH);
+
+                /*
+                 *  Area centrale: output dei messaggi
+                 */
                 outputArea = new JTextArea(10, 40);
                 outputArea.setEditable(false);
                 outputArea.setBackground(Color.BLACK);
                 outputArea.setForeground(Color.GREEN);
                 outputArea.setFont(new Font("SansSerif", Font.PLAIN, 16));
-                JScrollPane pannelloMessaggiOutput = new JScrollPane(outputArea);
-                pannelloMessaggiOutput.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                frame.add(pannelloMessaggiOutput, BorderLayout.CENTER);
+                JScrollPane outputMsgPanel = new JScrollPane(outputArea);
+                outputMsgPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                frame.add(outputMsgPanel, BorderLayout.CENTER);
 
-                // Campo di input: aggiunge un bordo visibile e padding interno
+                /*
+                 * Livello inferiore della finestra
+                 * Campo di input con aggiunto un bordo visibile e padding interno
+                 */
                 inputArea = new JTextField();
                 inputArea.setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(Color.BLUE, 2),
@@ -90,17 +107,21 @@ public class Gui implements View {
         }
     }
 
-
+    /*
+     * Implemento i metodi dell'interfaccia
+     */
+    // Stampa un messaggio su System.out
     @Override
-    public void mostraMessaggio(String message) {
+    public void showMsg(String message) {
         SwingUtilities.invokeLater(() -> {
             // Imposta il flag in base al messaggio inviato
-            String ritaglioDiTesto = message.trim();
-            if (ritaglioDiTesto.equals("GRIGLIA PERSONALE")) {
-                flagGrigliaPersonale = true;
-            } else if (ritaglioDiTesto.equals("GRIGLIA DI ATTACCO")) {
-                flagGrigliaAttacco = true;
+            String stringTrim = message.trim();
+            if (stringTrim.equals("GRIGLIA PERSONALE")) {
+                personalGridFlag = true;
+            } else if (stringTrim.equals("GRIGLIA DI ATTACCO")) {
+                attackGridFlag = true;
             }
+            
             outputArea.append(message + "\n");
             outputArea.setCaretPosition(outputArea.getDocument().getLength());
         });
@@ -109,7 +130,7 @@ public class Gui implements View {
     @Override
     public String prompt(String message) {
         // Mostra il messaggio per indicare all'utente cosa inserire
-        mostraMessaggio(message);
+        showMsg(message);
         
         final CountDownLatch latch = new CountDownLatch(1);
         final String[] userInput = new String[1];
@@ -140,76 +161,27 @@ public class Gui implements View {
         return userInput[0];
     }
 
+    // Gestisce ed aggiorna le griglie personale e di attacco in base a che messaggi arrivano dal controller
     @Override
-    public void stampa(Griglia griglia) {
+    public void gridDrawing(Grid grid) {
         SwingUtilities.invokeLater(() -> {
             // Aggiorna il pannello appropriato in base al flag impostato
-            if (flagGrigliaPersonale) {
-                grigliaPersonale.setGriglia(griglia);
-                flagGrigliaPersonale = false;
-            } else if (flagGrigliaAttacco) {
-                grigliaAttacco.setGriglia(griglia);
-                flagGrigliaAttacco = false;
+            if (personalGridFlag) {
+                personalGrid.setGrid(grid);
+                personalGridFlag = false;
+            } else if (attackGridFlag) {
+                attackGrid.setGrid(grid);
+                attackGridFlag = false;
             } else {
                 // Se non è stato impostato alcun flag, aggiorna quello personale
-                grigliaPersonale.setGriglia(griglia);
+                personalGrid.setGrid(grid);
             }
         });
     }
 
-    // Metodo che gestisce l'input delle coordinate (x,y) incluso la validazione
+    // Chiude tutto
     @Override
-    public Point leggiCoordinate(String message, int dim) {
-        while (true) {
-            String input = prompt(message);
-            
-            // In caso di annullamento, restituisce una coordinata di default
-            if (input == null) {
-                return new Point(0, 0);
-            }
-            
-            String[] spezzattinoDiStringa = input.trim().split("\\s+");
-            if (spezzattinoDiStringa.length != 2) {
-                mostraMessaggio("Formato non valido. Inserisci due numeri separati da uno spazio.");
-                continue;
-            }
-            try {
-                int x = Integer.parseInt(spezzattinoDiStringa[0]);
-                int y = Integer.parseInt(spezzattinoDiStringa[1]);
-                if (x < 0 || x >= dim || y < 0 || y >= dim) {
-                    mostraMessaggio("Le coordinate devono essere comprese tra 0 e " + (dim - 1));
-                    continue;
-                }
-                return new Point(x, y);
-            } catch (NumberFormatException e) {
-                mostraMessaggio("Inserisci numeri validi.");
-            }
-        }
-    }
-
-    // Metodo che gestisce l'input dell'orientamento della nave, incluso la validazione
-    @Override
-    public boolean leggiOrientamento(String message) {
-        while (true) {
-            String input = prompt(message);
-            if (input == null) {
-                return true;
-            }
-            
-            input = input.trim();
-            if (input.equalsIgnoreCase("H")) {
-                return true;
-            } else if (input.equalsIgnoreCase("V")) {
-                return false;
-            } else {
-                mostraMessaggio("Inserisci un orientamento valido: H per orizzontale o V per verticale.");
-            }
-        }
-    }
-
-    // Chiudi, incarta e porta a casa
-    @Override
-    public void chiudi() {
+    public void close() {
         SwingUtilities.invokeLater(() -> frame.dispose());
     }
 }

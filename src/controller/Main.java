@@ -4,12 +4,12 @@
 */
 package controller;
 
-import model.BattagliaNavale;
-import model.Giocatore;
-import model.Model;
+import model.Battle;
+import model.Player;
+import model.ModelInterface;
 import view.Gui;
 import view.Tui;
-import view.View;
+import view.ViewInterface;
 import java.util.Scanner;
 
 public class Main { 
@@ -18,26 +18,26 @@ public class Main {
         // Creo due giocatori
         Scanner scanner = new Scanner(System.in);
         System.out.println("Inserisci il nome del giocatore:");
-        String nome = scanner.nextLine();
-        Giocatore giocatore1 = new Giocatore(nome, 10);
-        Giocatore giocatore2 = new Giocatore("PC", 10);
+        String name = scanner.nextLine();
+        Player player1 = new Player(name, 10);
+        Player player2 = new Player("PC", 10);
         
         // Richiedo anche il livello di difficoltà per il PC
         System.out.println("Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile");
-        int difficolta = scanner.nextInt();
+        int difficultyLevel = scanner.nextInt();
         scanner.nextLine();
         
         // Inizializzo il modello della battaglia navale
-        Model model = new BattagliaNavale(giocatore1, giocatore2);
+        ModelInterface model = new Battle(player1, player2);
         
         // Chiedo all'utente quale interfaccia utilizzare
         System.out.println("Scegli interfaccia: 1 = TUI, 2 = GUI");
-        int scelta = scanner.nextInt();
+        int choose = scanner.nextInt();
         scanner.nextLine();
         
         // Lancio la TUI o la GUI a seconda di cosa l'utente sceglie
-        View view;
-        if (scelta == 1) {
+        ViewInterface view;
+        if (choose == 1) {
             view = new Tui();
         } else {
         	view = new Gui();
@@ -45,8 +45,8 @@ public class Main {
         
         
         // Avvio il controller
-        Controller controller = new ControllerGioco(model, view, difficolta);
-        controller.gioca();
+        ControllerInterface controller = new GameController(model, view, difficultyLevel);
+        controller.startBattle();
         
         scanner.close();
     }

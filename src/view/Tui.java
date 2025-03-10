@@ -4,38 +4,41 @@
  */
 package view;
 
-import java.awt.Point;
 import java.util.Scanner;
-import model.Casella;
-import model.Griglia;
+import model.GridSquare;
+import model.Grid;
 
-public class Tui implements View {
+public class Tui implements ViewInterface {
     private Scanner scanner;
     
     public Tui() {
         scanner = new Scanner(System.in);
     }
     
+    // Stampa un messaggio su System.out
     @Override
-    public void mostraMessaggio(String message) {
+    public void showMsg(String message) {
         System.out.println(message);
     }
     
+    // Acquisice un input testuale da utente come fosse il prompt della Bash di Linux
     @Override
     public String prompt(String message) {
         System.out.print(message);
         return scanner.nextLine();
     }
     
+    // Chiude scanner
     @Override
-    public void chiudi() {
+    public void close() {
         scanner.close();
     }
     
+    // Disegna la griglia di gioco
     @Override
-    public void stampa(Griglia griglia) {
-        int dim = griglia.getDimensione();
-        Casella[][] caselle = griglia.getCaselle();
+    public void gridDrawing(Grid grid) {
+        int dim = grid.getSize();
+        GridSquare[][] gridSquares = grid.getGridSquares();
 
         // Intestazione colonne
         System.out.print("    ");
@@ -55,86 +58,47 @@ public class Tui implements View {
         for (int y = 0; y < dim; y++) {
             System.out.printf("%2d |", y);
             for (int x = 0; x < dim; x++) {
-                Casella casella = caselle[x][y];
-                char simbolo;
-                if (casella.getOccupata()) {
-                    int danno = casella.getLivelloDanno();
-                    int resistenza = casella.getResistenzaMax();
-                    if (danno == 0) {
-                        simbolo = '#';
-                    } else if (danno == resistenza) {
-                        simbolo = 'X';
+                GridSquare gridSquare = gridSquares[x][y];
+                char damageSymbol;
+                if (gridSquare.getIsOccupied()) {
+                    int damage = gridSquare.getDamageLevel();
+                    int resistance = gridSquare.getMaxResistance();
+                    if (damage == 0) {
+                        damageSymbol = '#';
+                    } else if (damage == resistance) {
+                        damageSymbol = 'X';
                     } else {
-                        switch(danno) {
-                            case 1: simbolo = '¼'; break;
-                            case 2: simbolo = '½'; break;
-                            case 3: simbolo = '¾'; break;
-                            default: simbolo = '?'; break;
+                        switch(damage) {
+                            case 1: damageSymbol = '¼'; break;
+                            case 2: damageSymbol = '½'; break;
+                            case 3: damageSymbol = '¾'; break;
+                            default: damageSymbol = '?'; break;
                         }
                     }
                 } else {
-                    if (casella.getColpita()) {
-                        if (casella.getLivelloDanno() > 0) {
-                            int danno = casella.getLivelloDanno();
-                            switch(danno) {
-                                case 1: simbolo = '¼'; break;
-                                case 2: simbolo = '½'; break;
-                                case 3: simbolo = '¾'; break;
-                                case 4: simbolo = 'X'; break;
-                                default: simbolo = '?'; break;
+                    if (gridSquare.getIsHit()) {
+                        if (gridSquare.getDamageLevel() > 0) {
+                            int damage = gridSquare.getDamageLevel();
+                            switch(damage) {
+                                case 1: damageSymbol = '¼'; break;
+                                case 2: damageSymbol = '½'; break;
+                                case 3: damageSymbol = '¾'; break;
+                                case 4: damageSymbol = 'X'; break;
+                                default: damageSymbol = '?'; break;
                             }
                         } else {
-                            simbolo = 'o';
+                            damageSymbol = 'o';
                         }
                     } else {
-                        simbolo = '.';
+                        damageSymbol = '.';
                     }
                 }
-                System.out.print(" " + simbolo + " ");
+                System.out.print(" " + damageSymbol + " ");
             }
             System.out.println();
         }
     }
     
-    @Override
-    public Point leggiCoordinate(String message, int dim) {
-        int x = -1, y = -1;
-        boolean valid = false;
-        while (!valid) {
-            String input = prompt(message);
-            String[] tokens = input.trim().split("\\s+");
-            if (tokens.length != 2) {
-                mostraMessaggio("Formato non valido. Inserisci due numeri separati da uno spazio.");
-                continue;
-            }
-            try {
-                x = Integer.parseInt(tokens[0]);
-                y = Integer.parseInt(tokens[1]);
-                if (x < 0 || x >= dim || y < 0 || y >= dim) {
-                    mostraMessaggio("Le coordinate devono essere comprese tra 0 e " + (dim - 1));
-                    continue;
-                }
-                valid = true;
-            } catch (NumberFormatException e) {
-                mostraMessaggio("Inserisci numeri validi.");
-            }
-        }
-        return new Point(x, y);
-    }
-    
-    @Override
-    public boolean leggiOrientamento(String message) {
-        while (true) {
-            String input = prompt(message);
-            if (input.trim().equalsIgnoreCase("O")) {
-                return true;
-            } else if (input.trim().equalsIgnoreCase("V")) {
-                return false;
-            } else {
-                mostraMessaggio("Inserisci un orientamento valido: O per orizzontale o V per verticale.");
-            }
-        }
-    }
 }
 
 
