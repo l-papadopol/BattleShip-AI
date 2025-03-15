@@ -75,7 +75,7 @@ public class Messages {
     }
     
     public static String fleetPlacing(String name) {
-        return "Posizionamento della flatta di " + name;
+        return "Posizionamento della flotta di " + name;
     }
     
     public static String placeShip(int lenght) {
@@ -121,6 +121,18 @@ public class Messages {
     
 	public static String bonusReceived(String bonusType, int qty) {
 		return "Hai ricevuto in bonus " + qty + " " + bonusType;
+	}
+	
+	public static String askPlayerName() {
+		return "Inserisci il nome del giocatore:";
+	}
+
+	public static String askDifficultyLevel() {
+		return "Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile";
+	}
+
+	public static String askView() {
+		return "Scegli interfaccia: 1 = TUI, 2 = GUI";
 	}
 
 

@@ -21,7 +21,9 @@ public class GridPanel extends JPanel {
         setPreferredSize(new Dimension(600, 600));       // Dimensione della finestra di default
     }
 
-    // Questo è il metodo che si occupa di ricreare la griglia. Questo va chiamato per aggiornare il disegno.
+    /*
+     *  Questo è il metodo che si occupa di ricreare la griglia. Questo va chiamato per aggiornare il disegno.
+     */
     public void setGrid(Grid grid) {
         this.grid = grid;
         if (grid != null) {
@@ -159,7 +161,9 @@ public class GridPanel extends JPanel {
         grid2D.setFont(originalFont);
     }
     
-    // Metodo che scrive centrandolo, un testo di un font qualsiasi e di dimensione qualsiasi nella cella
+    /*
+     *  Metodo che scrive centrandolo, un testo di un font qualsiasi e di dimensione qualsiasi nella cella
+     */
     private void writeCenteredText(Graphics2D g, String text, int gridSquareX, int gridSquareY, int gridSquareSize, int stileFont) {
         // Imposta esplicitamente il colore a nero, così da non ereditare quello precedente sennò vengono cose strane
         g.setColor(Color.BLACK);

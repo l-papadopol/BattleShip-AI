@@ -20,6 +20,9 @@ public class ProjectileHandler {
         this.view = view;
     }
 
+    /*
+     * Costruisce un proiettile
+     */
     public Projectile makeProjectile(int type, Player player) {
         switch (type) {
             case 2:
@@ -40,7 +43,7 @@ public class ProjectileHandler {
                 }
             case 1:
             default:
-                // Se tipo non valido o == 1, usa proiettile normale
+                // Se tipo non valido usa proiettile normale
                 return new StandardProjectile();
         }
     }

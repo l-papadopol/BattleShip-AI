@@ -22,6 +22,9 @@ public class PlayerTurnHandler {
         this.projectileHandler = projectileHandler;
     }
 
+    /*
+     * Gestisce il turno del giocatore umano
+     */
     public boolean handleHumanTurn(Player currentPlayer) {
         // Visualizza le griglie e i proiettili disponibili
         view.showMsg(Messages.personalGrid());
@@ -56,7 +59,7 @@ public class PlayerTurnHandler {
         // Crea il proiettile tramite il GestoreProiettili
         Projectile proiettile = projectileHandler.makeProjectile(type, currentPlayer);
 
-        // Esegue il turno e mostra l'esito (Colpito / Mancato)
+        // Esegue il turno e mostra l'esito colpito / mancato
         boolean hit = battle.executeTurn(coord, proiettile);
         view.showMsg(hit ? Messages.hitMsg() : Messages.missMsg());
         return hit;

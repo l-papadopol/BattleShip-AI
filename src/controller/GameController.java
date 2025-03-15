@@ -1,5 +1,5 @@
 /*
- * Implementazione del controller del gioco che si interfaccia fra model e view
+ * Implementazione del controller del gioco che si frppone tra model e view
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package controller;
@@ -32,7 +32,27 @@ public class GameController implements ControllerInterface {
 		this.pcTurnHandler = new PcTurnHandler(battle, view, difficultyLevel, projectileHandler);
 		this.humanTurnHandler = new PlayerTurnHandler(battle, view, projectileHandler);
 	}
+	
+	/*
+	 * Gestisce il piazzamento delle navi
+	 */
+	@Override
+	public void placeShips() {
+		Player g1 = battle.getFirstPlayer();
+		Player g2 = battle.getSecondPlayer();
 
+		int[] defaultShipsLenght = {5, 4, 4, 3, 3, 3, 2, 2, 1};
+
+		// Posizionamento navi per il giocatore umano
+		shipPlacingHandler.placeHumanFleet(g1, defaultShipsLenght);
+
+		// Posizionamento navi per il giocatore PC
+		shipPlacingHandler.placePcFleet(g2, defaultShipsLenght);
+	}
+	
+	/*
+	 * Gestisce l'avvio, la turnazione, la fine ed i bonus casuali della partita
+	 */
 	@Override
 	public void startBattle() {
 		view.showMsg(Messages.gameStart());
@@ -58,20 +78,9 @@ public class GameController implements ControllerInterface {
 		view.close();
 	}
 
-	@Override
-	public void placeShips() {
-		Player g1 = battle.getFirstPlayer();
-		Player g2 = battle.getSecondPlayer();
-
-		int[] defaultShipsLenght = {5, 4, 4, 3, 3, 3, 2, 2, 1};
-
-		// Posizionamento navi per il giocatore umano
-		shipPlacingHandler.placeHumanFleet(g1, defaultShipsLenght);
-
-		// Posizionamento navi per il giocatore PC
-		shipPlacingHandler.placePcFleet(g2, defaultShipsLenght);
-	}
-	
+	/*
+	 * Gestisce i bonus casuali
+	 */
 	private void applyBonus(Player currentPlayer) {
 	    Random random = new Random();
 	    // Bonus attivo con probabilità del 10%
@@ -87,7 +96,6 @@ public class GameController implements ControllerInterface {
 	        }
 	    }
 	}
-
 	
 }
 

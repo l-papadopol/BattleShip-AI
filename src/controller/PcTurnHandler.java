@@ -33,7 +33,9 @@ public class PcTurnHandler {
         this.random = new Random();
     }
 
-    // Metodo principale per gestire il turno del PC in base al livello di difficoltà
+    /*
+     *  Metodo principale per gestire il turno del PC in base al livello di difficoltà
+     */
     public boolean handlePcTurn(Player currentPlayer) {
         switch (difficultyLevel) {
             case 1:
@@ -116,13 +118,12 @@ public class PcTurnHandler {
                        : battle.getFirstPlayer();
         int dim = currentPlayer.getPersonalGrid().getSize();
 
-        // Verifica se esiste una "traccia di nave":
-        // Cella colpita con danno > 0 (quindi non un miss) e non affondata.
-        Point traccia = findPartialHitCellHard(enemy, dim);
-        if (traccia != null) {
-            // Modalità Target: continua a colpire le celle adiacenti alla traccia
+         // Verifica se esiste una cella colpita con danno > 0 (quindi non un miss) e non affondata.
+        Point knownTarget = findPartialHitCell(enemy, dim);
+        if (knownTarget != null) {
+            // Modalità Target: continua a colpire le celle adiacenti
             while (true) {
-                List<Point> adjacentCandidates = getAdjacentCandidates(traccia, enemy, dim);
+                List<Point> adjacentCandidates = getAdjacentCandidates(knownTarget, enemy, dim);
                 if (adjacentCandidates.isEmpty()) {
                     break; // non ci sono candidati, esci dalla modalità Target
                 }
@@ -131,8 +132,8 @@ public class PcTurnHandler {
                 int projectileType = (currentPlayer.getPowerfullProjectileQty() > 0) ? 2 : 1;
                 boolean hit = doPcShot(currentPlayer, target, projectileType);
                 if (hit) {
-                    // Aggiorna la traccia con il target appena colpito
-                    traccia = target;
+                    // Aggiorna il knownTarget con il target appena colpito
+                    knownTarget = target;
                 } else {
                     // Se il tiro va a vuoto, interrompi la modalità Target
                     break;
@@ -141,15 +142,17 @@ public class PcTurnHandler {
             return true;
         } else {
             // Modalità Hunt:
-            Point target = huntModeHard(enemy, dim);
-            double probability = estimateProbabilityHard(enemy, target, dim);
+            Point target = huntMode(enemy, dim);
+            double probability = estimateProbability(enemy, target, dim);
             int projectileType = (probability > 0.5 && currentPlayer.getSpecialProjectileQty() > 0) ? 3 : 1;
             return doPcShot(currentPlayer, target, projectileType);
         }
     }
 
-    // Restituisce la prima cella della griglia nemica che è stata colpita con danno > 0 ma non affondata.
-    private Point findPartialHitCellHard(Player enemy, int dim) {
+    /*
+     *  Restituisce la prima cella della griglia nemica che è stata colpita con danno > 0 ma non affondata.
+     */
+    private Point findPartialHitCell(Player enemy, int dim) {
         GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
         for (int x = 0; x < dim; x++) {
             for (int y = 0; y < dim; y++) {
@@ -162,8 +165,10 @@ public class PcTurnHandler {
         return null;
     }
 
-    // Restituisce una lista di celle adiacenti (orizzontali e verticali) alla cella "traccia"
-    // che non sono state colpite e che non hanno raggiunto il danno massimo.
+    /*
+     * Restituisce una lista di celle adiacenti (orizzontali e verticali) alla cella marchiata come "knownTarget"
+     * che non sono state colpite e che non hanno raggiunto il danno massimo.
+     */
     private List<Point> getAdjacentCandidates(Point traccia, Player enemy, int dim) {
         List<Point> candidates = new ArrayList<>();
         GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
@@ -182,7 +187,9 @@ public class PcTurnHandler {
         return candidates;
     }
 
-    // Seleziona il candidato con il punteggio più alto tra quelli passati.
+    /*
+     * Seleziona il candidato con il punteggio più alto tra quelli passati.
+     */
     private Point chooseBestCandidate(List<Point> candidates, Player enemy, int dim) {
         GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
         int bestScore = -1;
@@ -203,8 +210,10 @@ public class PcTurnHandler {
         return null;
     }
 
-    // Calcola un punteggio per la cella (x,y) basato sul numero di posizionamenti possibili
-    // in orizzontale e verticale intorno ad essa.
+    /*
+     *  Calcola un punteggio per la cella (x,y) basato sul numero di posizionamenti possibili
+     *  in orizzontale e verticale intorno ad essa.
+     */
     private int computePlacementScore(int x, int y, GridSquare[][] squares, int dim) {
         int countLeft = 0;
         for (int i = x - 1; i >= 0; i--) {
@@ -237,9 +246,10 @@ public class PcTurnHandler {
         return Math.max(horizontal, vertical);
     }
 
-    // Modalità Hunt: valuta tutte le celle non colpite (escludendo i miss in acqua)
-    // e restituisce quella con il punteggio massimo.
-    private Point huntModeHard(Player enemy, int dim) {
+    /*
+     * Modalità Hunt: valuta tutte le celle non colpite (escludendo i miss in acqua) e restituisce quella con il punteggio massimo.
+     */
+    private Point huntMode(Player enemy, int dim) {
         GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
         int bestScore = -1;
         List<Point> bestCells = new ArrayList<>();
@@ -265,14 +275,18 @@ public class PcTurnHandler {
         return new Point(random.nextInt(dim), random.nextInt(dim));
     }
 
-    // Stima la probabilità che la cella target contenga parte di una nave, normalizzando il punteggio.
-    private double estimateProbabilityHard(Player enemy, Point target, int dim) {
+    /*
+     *  Stima la probabilità che la cella target contenga parte di una nave
+     */
+    private double estimateProbability(Player enemy, Point target, int dim) {
         GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
         int score = computePlacementScore(target.x, target.y, squares, dim);
         return (double) score / dim;
     }
 
-    // Esegue il tiro sul bersaglio scelto, mostrando i messaggi appropriati.
+    /*
+     * Esegue il tiro sul bersaglio scelto, mostrando i messaggi appropriati.
+     */
     private boolean doPcShot(Player currentPlayer, Point target, int projectileType) {
         Projectile projectile = projectileHandler.makeProjectile(projectileType, currentPlayer);
         view.showMsg(Messages.pcShootMsg(target.x, target.y));

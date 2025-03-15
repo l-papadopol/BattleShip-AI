@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShipBuilder {
+	
+	/*
+	 * Costruisce una nave
+	 */
     public static Ship buildShip(int lenght, Point pointOfOrigin, boolean isHorizontal) {
         List<GridSquare> gridSquares = new ArrayList<>();
         int x = pointOfOrigin.x;

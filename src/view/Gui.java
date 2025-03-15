@@ -27,11 +27,12 @@ public class Gui implements ViewInterface {
     // Flag per capire quale griglia aggiornare in gridDrawing()
     private boolean personalGridFlag = false;
     private boolean attackGridFlag = false;
+    
 
     /*
      * Disegno la GUI
      */
-    public Gui() {
+    public Gui(String name) {
         try {
             SwingUtilities.invokeAndWait(() -> {
             	
@@ -57,7 +58,7 @@ public class Gui implements ViewInterface {
                 attackGridContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
                  // Metto le due griglie, personale e di attacco nei rispettivi contenitori con le relative etichette
-                JLabel personalGridCaption = new JLabel("Giocatore", SwingConstants.CENTER);
+                JLabel personalGridCaption = new JLabel(name, SwingConstants.CENTER);
                 personalGridContainer.add(personalGridCaption, BorderLayout.NORTH);
                 personalGrid = new GridPanel();
                 personalGridContainer.add(personalGrid, BorderLayout.CENTER);
@@ -110,7 +111,6 @@ public class Gui implements ViewInterface {
     /*
      * Implemento i metodi dell'interfaccia
      */
-    // Stampa un messaggio su System.out
     @Override
     public void showMsg(String message) {
         SwingUtilities.invokeLater(() -> {
@@ -161,7 +161,9 @@ public class Gui implements ViewInterface {
         return userInput[0];
     }
 
-    // Gestisce ed aggiorna le griglie personale e di attacco in base a che messaggi arrivano dal controller
+    /*
+     *  Gestisce ed aggiorna le griglie personale e di attacco in base a che messaggi arrivano dal controller
+     */
     @Override
     public void gridDrawing(Grid grid) {
         SwingUtilities.invokeLater(() -> {
@@ -179,9 +181,12 @@ public class Gui implements ViewInterface {
         });
     }
 
-    // Chiude tutto
+    /*
+     *  Chiude tutto
+     */
     @Override
     public void close() {
         SwingUtilities.invokeLater(() -> frame.dispose());
     }
+
 }

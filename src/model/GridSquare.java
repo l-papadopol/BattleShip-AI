@@ -14,7 +14,9 @@ public class GridSquare {
 	Boolean isOccupied;
 	Boolean isHit;
 	
-	// Costruttore dettagliato
+	/*
+	 *  Costruttore completo
+	 */
 	public GridSquare(Point coordinates, int damageLevel, int maxResistance, Boolean isOccupied, Boolean isHit) {
 		this.coordinates = coordinates;
 		this.damageLevel = damageLevel;
@@ -23,7 +25,9 @@ public class GridSquare {
 		this.isHit = isHit;
 	}
 	
-	// Costruttore generico con campi specifici inizializzati a valore di default
+	/*
+	 *  Costruttore generico con campi specifici inizializzati a valore di default
+	 */
 	public GridSquare(Point coordinates) {
 		this.coordinates = coordinates;
 		this.damageLevel = 0;

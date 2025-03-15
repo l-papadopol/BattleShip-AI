@@ -10,6 +10,7 @@ import model.ModelInterface;
 import view.Gui;
 import view.Tui;
 import view.ViewInterface;
+import view.Messages;
 import java.util.Scanner;
 
 public class Main { 
@@ -17,13 +18,13 @@ public class Main {
 
         // Creo due giocatori
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Inserisci il nome del giocatore:");
+        System.out.println(Messages.askPlayerName());
         String name = scanner.nextLine();
         Player player1 = new Player(name, 10);
         Player player2 = new Player("PC", 10);
         
         // Richiedo anche il livello di difficoltà per il PC
-        System.out.println("Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile");
+        System.out.println(Messages.askDifficultyLevel());
         int difficultyLevel = scanner.nextInt();
         scanner.nextLine();
         
@@ -31,18 +32,17 @@ public class Main {
         ModelInterface model = new Battle(player1, player2);
         
         // Chiedo all'utente quale interfaccia utilizzare
-        System.out.println("Scegli interfaccia: 1 = TUI, 2 = GUI");
+        System.out.println(Messages.askView());
         int choose = scanner.nextInt();
         scanner.nextLine();
         
-        // Lancio la TUI o la GUI a seconda di cosa l'utente sceglie
+        // Lancio la TUI o la GUI a seconda di cosa sceglie l'utente
         ViewInterface view;
         if (choose == 1) {
             view = new Tui();
         } else {
-        	view = new Gui();
+        	view = new Gui(name);
         }
-        
         
         // Avvio il controller
         ControllerInterface controller = new GameController(model, view, difficultyLevel);

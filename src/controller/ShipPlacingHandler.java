@@ -18,11 +18,11 @@ public class ShipPlacingHandler {
         this.random = new Random();
     }
 
-    /**
-     * Posiziona tutte le navi per il giocatore umano, usando i messaggi e i metodi TUI/GUI.
+    /*
+     * Posiziona tutte le navi per il giocatore umano
      */
     public void placeHumanFleet(Player player, int[] shipLenghts) {
-        view.showMsg(Messages.fleetPlacing(player.getName()));
+        view.showMsg(Messages.fleetPlacing(player.getName()));;
         int dim = player.getPersonalGrid().getSize();
 
         for (int lenght : shipLenghts) {
@@ -50,7 +50,7 @@ public class ShipPlacingHandler {
         }
     }
 
-    /**
+    /*
      * Posiziona tutte le navi per il giocatore PC, in modo casuale.
      */
     public void placePcFleet(Player player, int[] shipLenghts) {

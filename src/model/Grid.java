@@ -25,7 +25,9 @@ public class Grid {
 		}
 	}
 
-	// Posiziono una nave nella griglia stando bene attento che non esca fuori.
+	/*
+	 *  Posiziono una nave nella griglia stando bene attento che non esca fuori.
+	 */
 	public boolean placeShip(Ship ship, Point coordinates, boolean isHorizontal) {
 	    List<GridSquare> shipSquares = new ArrayList<>();
 	    int x = coordinates.x;
@@ -52,7 +54,9 @@ public class Grid {
 	    return true;
 	}
 
-	// Danneggia una casella che compone la nave oppure marchia come colpo andato a vuoto un colpo nel mare
+	/*
+	 *  Danneggia una casella che compone la nave oppure marchia come colpo andato a vuoto un colpo nel mare
+	 */
 	public boolean applyDamage(Point coordinates, Projectile projectile) {
 		int x = coordinates.x;
 		int y = coordinates.y;
@@ -82,7 +86,9 @@ public class Grid {
 		return true;
 	}
 
-	// Restituisce true se tutte le navi sono affondate oppure false
+	/*
+	 *  Restituisce true se tutte le navi sono affondate oppure false
+	 */
 	public boolean isEverythinkSunk() {
 		for (Ship ship : ships) {
 			if (!ship.isSunk()) {
@@ -92,17 +98,23 @@ public class Grid {
 		return true;
 	}
 
-	// Quanto è grande la griglia quadrata???
+	/*
+	 *  Quanto è grande la griglia quadrata???
+	 */
 	public int getSize() {
 		return size;
 	}
 	
-	// Restituisce le navi
+	/*
+	 *  Restituisce le navi
+	 */
 	public List<Ship> getShips() {
 	    return ships;
 	}
 	
-	// Restituisce l'array bidimensionale di caselle che compone la griglia, utile per la text user interface
+	/*
+	 *  Restituisce l'array bidimensionale di caselle che compone la griglia, utile per la text user interface
+	 */
 	public GridSquare[][] getGridSquares() {
 	    return gridSquares;
 	}

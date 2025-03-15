@@ -10,36 +10,48 @@ import model.Grid;
 
 public class Tui implements ViewInterface {
     private Scanner scanner;
+	private String playerName;
     
     public Tui() {
         scanner = new Scanner(System.in);
     }
     
-    // Stampa un messaggio su System.out
+    /*
+     *  Stampa un messaggio su System.out
+     */
     @Override
     public void showMsg(String message) {
         System.out.println(message);
     }
     
-    // Acquisice un input testuale da utente come fosse il prompt della Bash di Linux
+    /*
+     *  Acquisice un input testuale da utente come fosse il prompt della Bash di Linux
+     */
     @Override
     public String prompt(String message) {
         System.out.print(message);
         return scanner.nextLine();
     }
     
-    // Chiude scanner
+    /*
+     *  Chiude scanner
+     */
     @Override
     public void close() {
         scanner.close();
     }
     
-    // Disegna la griglia di gioco
+    /*
+     *  Disegna la griglia di gioco
+     */
     @Override
     public void gridDrawing(Grid grid) {
         int dim = grid.getSize();
         GridSquare[][] gridSquares = grid.getGridSquares();
 
+        // Intestazione
+        System.out.println(playerName);
+        
         // Intestazione colonne
         System.out.print("    ");
         for (int x = 0; x < dim; x++) {

@@ -13,22 +13,26 @@ public interface ViewInterface {
 	/*
 	 * Gestisco la stampa di messaggi, il loro inserimento e la chiusura dell'applicazione
 	 */
-	// Stampa un messaggio su System.out
     void showMsg(String message);
     
-    // Acquisice un input testuale da utente come fosse il prompt della Bash di Linux
+    /*
+     *  Acquisice un input testuale da utente come fosse il prompt della Bash di Linux
+     */
     String prompt(String message);
     
-    // Chiude tutto
+    /*
+     *  Chiude tutto
+     */
     void close();
     
     /*
      * Gestisco il disegno della griglia di gioco e chiedo coordinate/orientamento con validazione stretta
      */
-    // Disegna la griglia di gioco
     void gridDrawing(Grid griglia);
     
-    // Chiede di fornire le coordinate
+    /*
+     *  Chiede di fornire le coordinate
+     */
     default Point askCoordinates(String message, int dim) {
     	while (true) {
             String input = prompt(message);          
@@ -51,7 +55,9 @@ public interface ViewInterface {
         }
     }
     
-    // Chiede di fornire l'orientamento di una nave
+    /*
+     *  Chiede di fornire l'orientamento di una nave
+     */
     default boolean askOrientation(String message) {
     	 while (true) {
              String input = prompt(message);             
@@ -66,6 +72,5 @@ public interface ViewInterface {
              }
          }
     }
-    
-    
+
 }
