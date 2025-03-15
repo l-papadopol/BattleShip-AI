@@ -1,22 +1,21 @@
 /*
- * classe helper che contiene le strategie di gioco del PC
+ * Classe helper che contiene le strategie di gioco del PC livelli 1, 2 e 3.
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package controller;
 
-import model.Player;
-import model.ModelInterface;
-import model.Projectile;
-import model.GridSquare;
-import view.Messages;
-import view.ViewInterface;
-
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
+
+import model.GridSquare;
+import model.ModelInterface;
+import model.Player;
+import model.Projectile;
+import view.Messages;
+import view.ViewInterface;
 
 public class PcTurnHandler {
     private ModelInterface battle;
@@ -24,14 +23,7 @@ public class PcTurnHandler {
     private Random random;
     private int difficultyLevel;
     private ProjectileHandler projectileHandler;
-    
-    // Strategie per modalità media ("hunt and target")
-    private Set<Point> mediumFired = new HashSet<>();
-    private List<Point> targetQueue = new ArrayList<>();
-    
-    // Strategie per modalità alta (basata sulla probabilità)
-    private Set<Point> hardFired = new HashSet<>();
-    private Set<Point> hardHits = new HashSet<>();
+    private LinkedHashSet<Point> targets = new LinkedHashSet<>();
 
     public PcTurnHandler(ModelInterface battle, ViewInterface view, int difficultyLevel, ProjectileHandler projectileHandler) {
         this.battle = battle;
@@ -40,167 +32,252 @@ public class PcTurnHandler {
         this.projectileHandler = projectileHandler;
         this.random = new Random();
     }
-    
+
+    // Metodo principale per gestire il turno del PC in base al livello di difficoltà
     public boolean handlePcTurn(Player currentPlayer) {
-    	boolean hit = false;
-        if (difficultyLevel == 1) {
-            hit = playEasyOpponent(currentPlayer);
-        } else if (difficultyLevel == 2) {
-            hit = playMediumOpponent(currentPlayer);
-        } else if (difficultyLevel == 3) {
-            hit = playHardOpponent(currentPlayer);
+        switch (difficultyLevel) {
+            case 1:
+                return playEasy(currentPlayer);
+            case 2:
+                return playMedium(currentPlayer);
+            case 3:
+                return playHard(currentPlayer);
+            default:
+                return playEasy(currentPlayer);
         }
-        return hit;
     }
-    
-    // Difficoltà Facile: il PC spara a caso, scegliendo casualmente tra i proiettili (Normale, Potente, Speciale).
-    private boolean playEasyOpponent(Player currentPlayer) {
+
+    /*
+     * Livello 1: Modalità facile - tiro completamente casuale
+     */
+    private boolean playEasy(Player currentPlayer) {
         int dim = currentPlayer.getPersonalGrid().getSize();
-        int x = random.nextInt(dim);
-        int y = random.nextInt(dim);
+        Point p = new Point(random.nextInt(dim), random.nextInt(dim));
         int type = random.nextInt(3) + 1; // 1: Normale, 2: Potente, 3: Speciale
         Projectile projectile = projectileHandler.makeProjectile(type, currentPlayer);
         
-        view.showMsg(Messages.pcShootMsg(x, y));
-        boolean hit = battle.executeTurn(new Point(x, y), projectile);
+        view.showMsg(Messages.pcShootMsg(p.x, p.y));
+        boolean hit = battle.executeTurn(p, projectile);
         view.showMsg(hit ? Messages.pcHasHitMsg() : Messages.pcHasMissMsg());
         return hit;
     }
-    
-    // Difficoltà Media: modalità "hunt and target"
-    private boolean playMediumOpponent(Player currentPlayer) {
+
+    /*
+     * Livello 2: Modalità "hunt and target"
+     */
+    private boolean playMedium(Player currentPlayer) {
         int dim = currentPlayer.getPersonalGrid().getSize();
-        Point target = null;
-        boolean inTargetMode = false;
-        
-        // Se abbiamo già candidati nella targetQueue, siamo in target mode.
-        if (!targetQueue.isEmpty()) {
-            inTargetMode = true;
-            target = targetQueue.remove(0);
-            while (target != null && mediumFired.contains(target) && !targetQueue.isEmpty()) {
-                target = targetQueue.remove(0);
-            }
-            if (target != null && mediumFired.contains(target)) {
-                target = null;
-                inTargetMode = false;
-            }
-        }
-        
-        // Se non siamo in target mode, scegliamo una cella casuale non ancora colpita.
-        if (target == null) {
-            inTargetMode = false;
-            do {
-                int x = random.nextInt(dim);
-                int y = random.nextInt(dim);
-                target = new Point(x, y);
-            } while (mediumFired.contains(target));
-        }
-        mediumFired.add(target);
-        
-        int type;
-        if (inTargetMode) {
-            // Recuperiamo l'avversario
-            Player enemy = (currentPlayer == battle.getFirstPlayer()) ? battle.getSecondPlayer() : battle.getFirstPlayer();
-            // Otteniamo la griglia personale dell'avversario
-            GridSquare[][] enemySquares = enemy.getPersonalGrid().getGridSquares();
-            int currentDamage = enemySquares[target.x][target.y].getDamageLevel();
-            // Se la cella ha subito solo 1/4 di danno (damage == 1), usiamo il proiettile Potente per "finire" la sezione;
-            // altrimenti, se il danno è maggiore (cioè sono necessari colpi multipli), usiamo il proiettile Normale.
-            // Inoltre, con probabilità del 20%, forziamo l'uso del proiettile Speciale.
-            if (random.nextDouble() < 0.2) {
-                type = 3; // Speciale
-            } else {
-                type = (currentDamage == 1) ? 2 : 1;
-            }
+        Point target;
+        if (!targets.isEmpty()) {
+            // Preleva il primo elemento e lo rimuove
+            target = targets.iterator().next();
+            targets.remove(target);
         } else {
-            // Modalità hunt: uso il proiettile Normale.
-            type = 1;
+            target = new Point(random.nextInt(dim), random.nextInt(dim));
+            targets.add(target);
         }
+
+        // Determina il tipo di proiettile:
+        // Se la cella è già stata colpita (ma non completamente danneggiata), usa il proiettile potente;
+        // con il 25% di probabilità forza il proiettile speciale, altrimenti quello normale.
+        Player enemy = (currentPlayer == battle.getFirstPlayer()) ? battle.getSecondPlayer() : battle.getFirstPlayer();
+        GridSquare gs = enemy.getPersonalGrid().getGridSquares()[target.x][target.y];
+        int type = (random.nextDouble() < 0.25)
+                   ? 3
+                   : (gs.getIsHit() && gs.getDamageLevel() < gs.getMaxResistance() ? 2 : 1);
         
         Projectile projectile = projectileHandler.makeProjectile(type, currentPlayer);
         view.showMsg(Messages.pcShootMsg(target.x, target.y));
         boolean hit = battle.executeTurn(target, projectile);
         view.showMsg(hit ? Messages.pcHasHitMsg() : Messages.pcHasMissMsg());
         
-        // Se il colpo va a segno, aggiungiamo le celle adiacenti alla targetQueue.
+        // Se il tiro va a segno, aggiunge le celle adiacenti (solo orizzontali e verticali) a targets
         if (hit) {
-            int x = target.x;
-            int y = target.y;
-            Point[] neighbors = new Point[] {
-                new Point(x - 1, y),
-                new Point(x + 1, y),
-                new Point(x, y - 1),
-                new Point(x, y + 1)
-            };
-            for (Point p : neighbors) {
-                if (p.x >= 0 && p.x < dim && p.y >= 0 && p.y < dim &&
-                    !mediumFired.contains(p) && !targetQueue.contains(p)) {
-                    targetQueue.add(p);
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dy = -1; dy <= 1; dy++) {
+                    if (Math.abs(dx) + Math.abs(dy) == 1) {
+                        int nx = target.x + dx, ny = target.y + dy;
+                        if (nx >= 0 && nx < dim && ny >= 0 && ny < dim) {
+                            targets.add(new Point(nx, ny));
+                        }
+                    }
                 }
             }
         }
         return hit;
     }
-    
-    // Difficoltà Alta: pseudo-AI basata sulla probabilità.
-    private boolean playHardOpponent(Player currentPlayer) {
+
+    /*
+     * Livello 3: Pseudo-AI
+     */
+    private boolean playHard(Player currentPlayer) {
+        Player enemy = (currentPlayer == battle.getFirstPlayer())
+                       ? battle.getSecondPlayer()
+                       : battle.getFirstPlayer();
         int dim = currentPlayer.getPersonalGrid().getSize();
-        Point bestTarget = null;
-        int bestScore = -1;
-        
-        // Costruiamo la mappa delle probabilità per ogni cella non ancora colpita.
+
+        // Verifica se esiste una "traccia di nave":
+        // Cella colpita con danno > 0 (quindi non un miss) e non affondata.
+        Point traccia = findPartialHitCellHard(enemy, dim);
+        if (traccia != null) {
+            // Modalità Target: continua a colpire le celle adiacenti alla traccia
+            while (true) {
+                List<Point> adjacentCandidates = getAdjacentCandidates(traccia, enemy, dim);
+                if (adjacentCandidates.isEmpty()) {
+                    break; // non ci sono candidati, esci dalla modalità Target
+                }
+                // Seleziona il candidato migliore in base al punteggio euristico
+                Point target = chooseBestCandidate(adjacentCandidates, enemy, dim);
+                int projectileType = (currentPlayer.getPowerfullProjectileQty() > 0) ? 2 : 1;
+                boolean hit = doPcShot(currentPlayer, target, projectileType);
+                if (hit) {
+                    // Aggiorna la traccia con il target appena colpito
+                    traccia = target;
+                } else {
+                    // Se il tiro va a vuoto, interrompi la modalità Target
+                    break;
+                }
+            }
+            return true;
+        } else {
+            // Modalità Hunt:
+            Point target = huntModeHard(enemy, dim);
+            double probability = estimateProbabilityHard(enemy, target, dim);
+            int projectileType = (probability > 0.5 && currentPlayer.getSpecialProjectileQty() > 0) ? 3 : 1;
+            return doPcShot(currentPlayer, target, projectileType);
+        }
+    }
+
+    // Restituisce la prima cella della griglia nemica che è stata colpita con danno > 0 ma non affondata.
+    private Point findPartialHitCellHard(Player enemy, int dim) {
+        GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
         for (int x = 0; x < dim; x++) {
             for (int y = 0; y < dim; y++) {
-                Point p = new Point(x, y);
-                if (hardFired.contains(p))
-                    continue;
-                int score = 1; // punteggio base
-                Point[] neighbors = new Point[] {
-                    new Point(x - 1, y),
-                    new Point(x + 1, y),
-                    new Point(x, y - 1),
-                    new Point(x, y + 1)
-                };
-                for (Point n : neighbors) {
-                    if (n.x >= 0 && n.x < dim && n.y >= 0 && n.y < dim && hardHits.contains(n)) {
-                        score += 3;
+                if (squares[x][y].getIsHit() && squares[x][y].getDamageLevel() > 0 &&
+                    squares[x][y].getDamageLevel() < squares[x][y].getMaxResistance()) {
+                    return new Point(x, y);
+                }
+            }
+        }
+        return null;
+    }
+
+    // Restituisce una lista di celle adiacenti (orizzontali e verticali) alla cella "traccia"
+    // che non sono state colpite e che non hanno raggiunto il danno massimo.
+    private List<Point> getAdjacentCandidates(Point traccia, Player enemy, int dim) {
+        List<Point> candidates = new ArrayList<>();
+        GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
+        int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+        for (int[] offset : offsets) {
+            int nx = traccia.x + offset[0];
+            int ny = traccia.y + offset[1];
+            if (nx >= 0 && nx < dim && ny >= 0 && ny < dim) {
+                // Aggiungi solo se la cella non è stata colpita e non è affondata
+                if (!squares[nx][ny].getIsHit() &&
+                    squares[nx][ny].getDamageLevel() < squares[nx][ny].getMaxResistance()) {
+                    candidates.add(new Point(nx, ny));
+                }
+            }
+        }
+        return candidates;
+    }
+
+    // Seleziona il candidato con il punteggio più alto tra quelli passati.
+    private Point chooseBestCandidate(List<Point> candidates, Player enemy, int dim) {
+        GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
+        int bestScore = -1;
+        List<Point> bestCandidates = new ArrayList<>();
+        for (Point p : candidates) {
+            int score = computePlacementScore(p.x, p.y, squares, dim);
+            if (score > bestScore) {
+                bestScore = score;
+                bestCandidates.clear();
+                bestCandidates.add(p);
+            } else if (score == bestScore) {
+                bestCandidates.add(p);
+            }
+        }
+        if (!bestCandidates.isEmpty()) {
+            return bestCandidates.get(random.nextInt(bestCandidates.size()));
+        }
+        return null;
+    }
+
+    // Calcola un punteggio per la cella (x,y) basato sul numero di posizionamenti possibili
+    // in orizzontale e verticale intorno ad essa.
+    private int computePlacementScore(int x, int y, GridSquare[][] squares, int dim) {
+        int countLeft = 0;
+        for (int i = x - 1; i >= 0; i--) {
+            if (!squares[i][y].getIsHit())
+                countLeft++;
+            else break;
+        }
+        int countRight = 0;
+        for (int i = x + 1; i < dim; i++) {
+            if (!squares[i][y].getIsHit())
+                countRight++;
+            else break;
+        }
+        int horizontal = countLeft + countRight + 1;
+        
+        int countUp = 0;
+        for (int i = y - 1; i >= 0; i--) {
+            if (!squares[x][i].getIsHit())
+                countUp++;
+            else break;
+        }
+        int countDown = 0;
+        for (int i = y + 1; i < dim; i++) {
+            if (!squares[x][i].getIsHit())
+                countDown++;
+            else break;
+        }
+        int vertical = countUp + countDown + 1;
+        
+        return Math.max(horizontal, vertical);
+    }
+
+    // Modalità Hunt: valuta tutte le celle non colpite (escludendo i miss in acqua)
+    // e restituisce quella con il punteggio massimo.
+    private Point huntModeHard(Player enemy, int dim) {
+        GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
+        int bestScore = -1;
+        List<Point> bestCells = new ArrayList<>();
+        for (int x = 0; x < dim; x++) {
+            for (int y = 0; y < dim; y++) {
+                // Escludi le celle già colpite (i miss in acqua hanno isHit == true con damageLevel == 0)
+                if (!squares[x][y].getIsHit()) {
+                    int score = computePlacementScore(x, y, squares, dim);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestCells.clear();
+                        bestCells.add(new Point(x, y));
+                    } else if (score == bestScore) {
+                        bestCells.add(new Point(x, y));
                     }
                 }
-                // Aggiungiamo un piccolo termine casuale per variare la scelta (0 o 1)
-                score += random.nextInt(2);
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestTarget = p;
-                }
             }
         }
-        
-        if (bestTarget == null) {
-            bestTarget = new Point(random.nextInt(dim), random.nextInt(dim));
+        if (!bestCells.isEmpty()) {
+            return bestCells.get(random.nextInt(bestCells.size()));
         }
-        hardFired.add(bestTarget);
-        
-        int type;
-        if (bestScore <= 1) {
-            // Se il punteggio è basso, la cella è probabilmente vuota: sonda con colpi Normali.
-            type = 1;
-        } else {
-            // Se il punteggio è maggiore di 1, c'è probabilmente una nave nelle vicinanze: usa il proiettile Potente (tipo 2).
-            type = 2;
-            // Se il punteggio è particolarmente elevato (≥ 4) e con probabilità del 20%, prova a sparare un Speciale (tipo 3).
-            if (bestScore >= 4 && random.nextDouble() < 0.2) {
-                type = 3;
-            }
-        }
-        
-        Projectile projectile = projectileHandler.makeProjectile(type, currentPlayer);
-        view.showMsg(Messages.pcShootMsg(bestTarget.x, bestTarget.y));
-        boolean hit = battle.executeTurn(bestTarget, projectile);
+        // Fallback: se non ci sono candidati, scegli una cella casuale.
+        return new Point(random.nextInt(dim), random.nextInt(dim));
+    }
+
+    // Stima la probabilità che la cella target contenga parte di una nave, normalizzando il punteggio.
+    private double estimateProbabilityHard(Player enemy, Point target, int dim) {
+        GridSquare[][] squares = enemy.getPersonalGrid().getGridSquares();
+        int score = computePlacementScore(target.x, target.y, squares, dim);
+        return (double) score / dim;
+    }
+
+    // Esegue il tiro sul bersaglio scelto, mostrando i messaggi appropriati.
+    private boolean doPcShot(Player currentPlayer, Point target, int projectileType) {
+        Projectile projectile = projectileHandler.makeProjectile(projectileType, currentPlayer);
+        view.showMsg(Messages.pcShootMsg(target.x, target.y));
+        boolean hit = battle.executeTurn(target, projectile);
         view.showMsg(hit ? Messages.pcHasHitMsg() : Messages.pcHasMissMsg());
-        
-        if (hit) {
-            hardHits.add(bestTarget);
-        }
         return hit;
     }
 }
