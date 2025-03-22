@@ -126,7 +126,7 @@ L’obiettivo dell’applicazione è creare un videogioco che implementi il gioc
 \end_layout
 
 \begin_layout Standard
-Il giocatore deve avere come avversario un’intelligenza artificiale basilare pseudo-IA;
+Il giocatore deve avere come avversario un’intelligenza artificiale basilare pseudo-AI;
  il gioco deve rispettare delle regole specifiche che si discostano leggermente da quelle classiche garantendo anche un’esperienza chiara e coinvolgente per l’utente.
 \end_layout
 
@@ -622,7 +622,7 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -907,7 +907,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename UML_dominio.png
-	scale 60
+	scale 70
 
 \end_inset
 
@@ -952,7 +952,11 @@ L’architettura dell’applicazione Battleship-AI è progettata seguendo il pat
 \begin_layout Standard
 L'uso di MVC permette di mantenere il codice modulare,
  facilitando la manutenzione,
- l'estendibilità e la possibilità di sostituire le interfacce utente (passaggio tra GUI e TUI) senza modificare il modello o il controller.
+ l'estensibilità e la possibilità di sostituire le interfacce utente (passaggio tra GUI e TUI) senza modificare il modello o il controller.
+\end_layout
+
+\begin_layout Subsubsection
+Panoramica dell'architettura MVC
 \end_layout
 
 \begin_layout Standard
@@ -978,7 +982,7 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-MVC design pattern 
+MVC design pattern
 \end_layout
 
 \end_inset
@@ -986,17 +990,9 @@ MVC design pattern
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsubsection
-Panoramica dell'architettura MVC
 \end_layout
 
 \begin_layout Standard
@@ -1187,13 +1183,13 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename mvc.png
-	scale 30
+	scale 40
 
 \end_inset
 
@@ -1227,7 +1223,11 @@ Model
 
 \begin_layout Standard
 Punto di ingresso:
- ModelInterface.java Definisce l’insieme di operazioni eseguibili sulla logica di gioco e permette al Controller di interagire con il Model senza dipendere dall’implementazione concreta.
+ 
+\shape italic
+ModelInterface.java
+\shape default
+ Definisce l’insieme di operazioni eseguibili sulla logica di gioco e permette al Controller di interagire con il Model senza dipendere dall’implementazione concreta.
  
 \begin_inset Newline newline
 \end_inset
@@ -1236,7 +1236,10 @@ Classi che implementano il Model:
 \end_layout
 
 \begin_layout Itemize
-Battle.
+
+\shape italic
+Battle.java
+\shape default
  Contiene la logica della partita e implementa ModelInterface.
 \end_layout
 
@@ -1246,7 +1249,11 @@ View
 
 \begin_layout Standard
 Punto di ingresso:
- ViewInterface.java Definisce un'interfaccia comune per la gestione dell'interfaccia utente.
+ 
+\shape italic
+ViewInterface.java
+\shape default
+ Definisce un'interfaccia comune per la gestione dell'interfaccia utente.
  Consente di gestire sia l’interfaccia testuale (TUI) che quella grafica (GUI) senza modificare il Controller.
  
 \begin_inset Newline newline
@@ -1256,13 +1263,19 @@ Classi che implementano la View:
 \end_layout
 
 \begin_layout Itemize
-Gui.
+
+\shape italic
+Gui.java
+\shape default
  Implementa ViewInterface,
  fornendo un’interfaccia grafica.
 \end_layout
 
 \begin_layout Itemize
-Tui.
+
+\shape italic
+Tui.java
+\shape default
  Implementa ViewInterface,
  fornendo un’interfaccia testuale.
 \end_layout
@@ -1273,7 +1286,11 @@ Controller
 
 \begin_layout Standard
 Punto di ingresso:
- ControllerInterface.java Definisce i metodi fondamentali per la gestione della partita e il posizionamento delle navi.
+ 
+\shape italic
+ControllerInterface.java
+\shape default
+ Definisce i metodi fondamentali per la gestione della partita e il posizionamento delle navi.
  Separa la logica del gioco dalla gestione dell’interfaccia.
  
 \begin_inset Newline newline
@@ -1283,13 +1300,760 @@ Classi che implementano il Controller:
 \end_layout
 
 \begin_layout Itemize
-GameController.
+
+\shape italic
+GameController.java
+\shape default
  Implementa ControllerInterface,
  gestisce l’interazione tra Model e View.
 \end_layout
 
 \begin_layout Subsection
 DESIGN DETTAGLIATO
+\end_layout
+
+\begin_layout Subsubsection
+Gestione flessibile dei proiettili con il design pattern Factory Method
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Il problema
+\series default
+ 
+\begin_inset Newline newline
+\end_inset
+
+Nel gioco della battaglia navale,
+ ogni turno prevede la scelta e l’uso di un proiettile da parte del giocatore o dell’IA.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Sono disponibili più tipi di proiettili (standard,
+ potente,
+ speciale),
+ ognuno con caratteristiche differenti.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Il problema nasce nel momento in cui la logica di creazione dei proiettili viene ripetuta o dispersa nel codice,
+ portando a duplicazioni,
+ mancanza di coerenza e difficoltà di manutenzione.
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+La soluzione
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+Per risolvere questo problema si è adottato il 
+\series bold
+Factory Method
+\series default
+,
+ che consente di incapsulare la logica di creazione dei proiettili all’interno di una classe dedicata 
+\shape italic
+ProjectileHandler
+\shape default
+,
+ restituendo un oggetto polimorfico di tipo Projectile.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Alternative considerate
+\end_layout
+
+\begin_layout Itemize
+Creazione diretta nei controller
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Pro:
+ semplice da scrivere
+\end_layout
+
+\begin_layout Itemize
+Contro:
+ ripetitivo,
+ difficile da manutenere,
+ rende difficile introdurre nuovi tipi di proiettile
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Implementazione
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+Classi coinvolte
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Projectile.java
+\shape default
+ classe astratta che rappresenta un generico proiettile.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+StandardProjectile.java
+\shape default
+,
+ 
+\shape italic
+PowerProjectile.java
+\shape default
+,
+ 
+\shape italic
+SpecialProjectile.java
+\shape default
+ sottoclassi concrete di Projectile.
+\end_layout
+
+\begin_layout Itemize
+
+\shape slanted
+ProjectileHandler.java
+\shape default
+ classe che contiene il 
+\bar under
+metodo factory
+\bar default
+ 
+\shape italic
+makeProjectile(int type,
+ Player player).
+\end_layout
+
+\begin_layout Standard
+Relazioni
+\end_layout
+
+\begin_layout Itemize
+Il controller,
+ sia umano che IA,
+ chiama ProjectileHandler.makeProjectile() per creare un proiettile.
+\end_layout
+
+\begin_layout Itemize
+ProjectileHandler crea il tipo di proiettile richiesto e restituisce l'oggetto di tipo Projectile corrispondente;
+ 
+\begin_inset Newline newline
+\end_inset
+
+il metodo può adattarsi alla disponibilità del giocatore,
+ ad esempio se ha ancora proiettili speciali e decidere dinamicamente il tipo di proiettile da creare.
+\end_layout
+
+\begin_layout Itemize
+Il chiamante non conosce la classe concreta:
+ utilizza l’oggetto restituito in modo polimorfico.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename UML_factory.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Implementazione del design pattern Factory
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gestione flessibile delle strategie di attacco dell’IA con il design pattern Strategy
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Il problema
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+Nel gioco della Battaglia Navale,
+ il comportamento dell’IA durante il proprio turno varia in base al livello di difficoltà scelto dal giocatore (facile,
+ medio,
+ difficile).
+\begin_inset Newline newline
+\end_inset
+
+Inizialmente,
+ tutta la logica delle diverse modalità era inserita direttamente nella classe PcTurnHandler,
+ tramite una struttura switch-case che selezionava tra i metodi playEasy(),
+ playMedium() e playHard().
+\begin_inset Newline newline
+\end_inset
+
+Questo approccio presentava alcuni problemi:
+\end_layout
+
+\begin_layout Itemize
+Il codice diventava difficile da leggere e mantenere,
+ a causa della crescita della complessità interna.
+\end_layout
+
+\begin_layout Itemize
+Aggiungere nuove strategie richiedeva modificare la classe PcTurnHandler.
+\end_layout
+
+\begin_layout Itemize
+Il comportamento dell’IA era rigidamente accoppiato a una singola classe.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+La soluzione
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+Per risolvere questi problemi è stato adottato il Strategy Pattern,
+ un pattern comportamentale che permette di incapsulare algoritmi alternativi (strategie) all’interno di classi distinte,
+ intercambiabili a runtime.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Struttura della soluzione
+\end_layout
+
+\begin_layout Itemize
+È stata introdotta un’interfaccia AITurnStrategy,
+ che rappresenta una generica strategia di attacco dell’IA.
+\end_layout
+
+\begin_layout Itemize
+Ogni strategia concreta (EasyStrategy,
+ MediumStrategy,
+ HardStrategy) implementa questa interfaccia e incapsula il proprio algoritmo.
+\end_layout
+
+\begin_layout Itemize
+La classe PcTurnHandler seleziona la strategia in fase di costruzione,
+ in base al livello di difficoltà scelto,
+ e la usa senza conoscerne i dettagli.
+\end_layout
+
+\begin_layout Standard
+Alternative considerate
+\end_layout
+
+\begin_layout Itemize
+Switch-case centralizzato in PcTurnHandler:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Pro:
+ semplice da implementare
+\end_layout
+
+\begin_layout Itemize
+Contro:
+ codice poco leggibile,
+ difficile da estendere
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Implementazione
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+Classi coinvolte
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+AITurnStrategy.java
+\shape default
+ interfaccia che definisce il metodo executeTurn(Player currentPlayer).
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+EasyStrategy.java
+\shape default
+,
+ 
+\shape italic
+MediumStrategy.java
+\shape default
+,
+ 
+\shape italic
+HardStrategy.java
+\shape default
+ → classi concrete che implementano AITurnStrategy,
+ ognuna con una strategia di attacco diversa.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+PcTurnHandler.java
+\shape default
+ seleziona la strategia in base alla difficoltà e la utilizza per eseguire il turno del PC.
+\end_layout
+
+\begin_layout Standard
+Relazioni
+\end_layout
+
+\begin_layout Itemize
+PcTurnHandler dipende dall'interfaccia AITurnStrategy,
+ non dalle implementazioni specifiche.
+\end_layout
+
+\begin_layout Itemize
+Ogni strategia può utilizzare ModelInterface,
+ ViewInterface e ProjectileHandler per eseguire il comportamento specifico.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename UML_strategy.png
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design pattern Strategy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gestione del livello di difficoltà dell’intelligenza artificiale
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Il problema
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+Nel contesto del gioco della Battaglia Navale,
+ il giocatore umano si confronta con un avversario gestito dall’intelligenza artificiale (IA).
+ 
+\begin_inset Newline newline
+\end_inset
+
+Tuttavia,
+ un'IA che gioca sempre nello stesso modo ad esempio tirando a caso,
+ rischia di risultare troppo prevedibile e noiosa per un utente esperto,
+ oppure troppo difficile se gioca sempre in modo ottimizzato.
+\begin_inset Newline newline
+\end_inset
+
+Il problema risiede quindi nella necessità di offrire un'esperienza di gioco equilibrata e personalizzabile,
+ capace di adattarsi al livello del giocatore.
+\begin_inset Newline newline
+\end_inset
+
+In particolare,
+ si volevano soddisfare i seguenti requisiti:
+\end_layout
+
+\begin_layout Itemize
+Offrire una sfida più accessibile ai principianti.
+\end_layout
+
+\begin_layout Itemize
+Consentire una partita più stimolante per giocatori esperti.
+\end_layout
+
+\begin_layout Itemize
+Evitare che l’IA si comporti in modo completamente casuale o totalmente invincibile in tutte le situazioni.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+La soluzione
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+Per risolvere il problema si è deciso di introdurre tre livelli di difficoltà per l’IA,
+ ognuno con un comportamento di attacco differente:
+\end_layout
+
+\begin_layout Itemize
+Livello 1 facile:
+ l’IA sceglie casualmente una cella da colpire.
+\end_layout
+
+\begin_layout Itemize
+Livello 2 medio:
+ l’IA utilizza una strategia “hunt and target”:
+ se colpisce una nave,
+ cerca di colpire le celle adiacenti.
+\end_layout
+
+\begin_layout Itemize
+Livello 3 difficile:
+ l’IA usa un approccio pseudo-intelligente,
+ analizzando la griglia per stimare la probabilità che una cella contenga una nave,
+ e colpendo di conseguenza.
+\end_layout
+
+\begin_layout Standard
+Alternative considerate
+\end_layout
+
+\begin_layout Itemize
+IA unica con comportamento fisso:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Pro:
+ implementazione più semplice.
+\end_layout
+
+\begin_layout Itemize
+Contro:
+ esperienza di gioco statica,
+ poco scalabile,
+ adatta solo a un certo tipo di giocatore.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Considerazioni sulla scelta
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+La soluzione scelta ha il vantaggio di:
+\end_layout
+
+\begin_layout Itemize
+Rendere il gioco accessibile a tutti,
+ dai principianti agli utenti esperti.
+\end_layout
+
+\begin_layout Itemize
+Migliorare la longevità del gioco,
+ permettendo di ripetere le partite con livelli di sfida differenti.
+\end_layout
+
+\begin_layout Itemize
+Facilitare la manutenzione e l’espandibilità,
+ grazie all'uso del pattern Strategy che incapsula ogni comportamento in una classe separata.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Implementazione
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+Modalità Facile – Tiro completamente casuale
+\end_layout
+
+\begin_layout Itemize
+L’IA sceglie casualmente una cella della griglia del giocatore,
+ senza tenere conto di colpi precedenti o della disposizione delle navi.
+\end_layout
+
+\begin_layout Itemize
+Anche la scelta del tipo di proiettile è casuale.
+\end_layout
+
+\begin_layout Itemize
+Non viene applicata alcuna logica predittiva o di ricerca.
+\end_layout
+
+\begin_layout Itemize
+Obiettivo:
+ simulare un comportamento semplice,
+ simile a un principiante,
+ rendendo la sfida molto accessibile.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename livelloEasy.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Flowchart algoritmo di attacco casuale - livello semplice
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Modalità Media – “Hunt and Target”
+\end_layout
+
+\begin_layout Itemize
+L’IA effettua un tiro casuale finché non colpisce una nave (modalità “hunt”).
+\end_layout
+
+\begin_layout Itemize
+Una volta ottenuto un colpo a segno,
+ memorizza la posizione e inizia a colpire le celle adiacenti (modalità “target”),
+ nel tentativo di affondare la nave.
+\end_layout
+
+\begin_layout Itemize
+Usa anche un proiettile più potente se individua una nave non ancora completamente danneggiata.
+\end_layout
+
+\begin_layout Itemize
+Obiettivo:
+ simulare un giocatore più attento,
+ in grado di ragionare in modo elementare sulla disposizione delle navi.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename livelloMedium.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Flowchart algoritmo di attacco ottimizzato - livello medio
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Modalità Difficile – Pseudo-AI con valutazione probabilistica
+\end_layout
+
+\begin_layout Itemize
+L’IA analizza l’intera griglia nemica e assegna un punteggio a ciascuna cella in base alla probabilità che contenga parte di una nave.
+\end_layout
+
+\begin_layout Itemize
+Se trova celle già colpite ma non affondate,
+ passa in modalità “target” intelligente e colpisce le celle più promettenti attorno al bersaglio.
+\end_layout
+
+\begin_layout Itemize
+La scelta del tipo di proiettile è ottimizzata in base alla probabilità stimata di successo.
+\end_layout
+
+\begin_layout Itemize
+L'approccio adottato trae ispirazione dai primi sistemi esperti,
+ che spesso combinavano regole decisionali con valutazioni probabilistiche per gestire l'incertezza e migliorare l'efficacia delle decisioni.
+\end_layout
+
+\begin_layout Itemize
+Obiettivo:
+ simulare un comportamento “intelligente”,
+ che anticipa le mosse del giocatore e aumenta significativamente la difficoltà.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename livelloHard.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Flowchart algoritmo di attacco pseudo-IA - livello difficile
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1331,7 +2095,11 @@ Vi sono quattro test JUnit:
 \series bold
 GridSquareTest.java
 \series default
- Testa il comportamento della classe GridSquare.java,
+ Testa il comportamento della classe 
+\shape italic
+GridSquare.java
+\shape default
+,
  che rappresenta una singola casella della griglia.
 \end_layout
 
@@ -1390,7 +2158,11 @@ isHitTest()
 \series bold
 GridTest.java 
 \series default
-Testa il comportamento della classe Grid.java,
+Testa il comportamento della classe 
+\shape italic
+Grid.java
+\shape default
+,
  che gestisce l’intera griglia del gioco.
 \end_layout
 
@@ -1433,7 +2205,11 @@ everythingIsSunkTest()
 \series bold
 ShipTest.java 
 \series default
-Testa il comportamento della classe Ship.java,
+Testa il comportamento della classe 
+\shape italic
+Ship.java
+\shape default
+,
  che rappresenta una nave composta da più caselle.
 \end_layout
 
@@ -1485,7 +2261,11 @@ Dopo il colpo finale,
 \series bold
 BattleTest.java 
 \series default
-Testa il comportamento della classe Battle.java,
+Testa il comportamento della classe 
+\shape italic
+Battle.java
+\shape default
+,
  che gestisce l’intera partita.
 \end_layout
 

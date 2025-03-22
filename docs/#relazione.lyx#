@@ -1684,13 +1684,13 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename UML_strategy.png
-	scale 35
+	scale 50
 
 \end_inset
 
@@ -1738,8 +1738,7 @@ Nel contesto del gioco della Battaglia Navale,
 \end_inset
 
 Tuttavia,
- un'IA che gioca sempre nello stesso modo ad esempio tirando a caso,
- rischia di risultare troppo prevedibile e noiosa per un utente esperto,
+ un'IA che gioca sempre nello stesso modo (ad esempio tirando a caso) rischia di risultare troppo prevedibile e noiosa per un utente esperto,
  oppure troppo difficile se gioca sempre in modo ottimizzato.
 \begin_inset Newline newline
 \end_inset
@@ -1855,12 +1854,6 @@ Implementazione
 \begin_inset Newline newline
 \end_inset
 
-
-\begin_inset Newline newline
-\end_inset
-
-
-\series bold
 Modalità Facile – Tiro completamente casuale
 \end_layout
 
@@ -1885,48 +1878,6 @@ Obiettivo:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement H
-alignment document
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename livelloEasy.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Flowchart algoritmo di attacco casuale - livello semplice
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\series bold
 Modalità Media – “Hunt and Target”
 \end_layout
 
@@ -1951,48 +1902,6 @@ Obiettivo:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement H
-alignment document
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename livelloMedium.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Flowchart algoritmo di attacco ottimizzato - livello medio
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\series bold
 Modalità Difficile – Pseudo-AI con valutazione probabilistica
 \end_layout
 
@@ -2018,46 +1927,6 @@ L'approccio adottato trae ispirazione dai primi sistemi esperti,
 Obiettivo:
  simulare un comportamento “intelligente”,
  che anticipa le mosse del giocatore e aumenta significativamente la difficoltà.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-alignment document
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename livelloHard.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Flowchart algoritmo di attacco pseudo-IA - livello difficile
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
