@@ -87,15 +87,15 @@ public class Grid {
 	}
 
 	/*
-	 *  Restituisce true se tutte le navi sono affondate oppure false
+	 *  Restituisce true se tutte le navi sono affondate oppure false se non lo sono o se la griglia è vuota
 	 */
-	public boolean isEverythinkSunk() {
-		for (Ship ship : ships) {
-			if (!ship.isSunk()) {
-				return false;
-			}
-		}
-		return true;
+	public boolean isEverythingSunk() {
+	    if (ships.isEmpty()) {
+	        return false; // Se non ci sono navi, il giocatore non può essere considerato sconfitto.
+	    }
+
+	    return ships.stream()
+	                .allMatch(ship -> ship.isSunk()); // Usa una lambda e stream :P per verificare se tutte le navi sono affondate
 	}
 
 	/*

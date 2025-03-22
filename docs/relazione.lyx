@@ -36,7 +36,7 @@
 \spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -63,6 +63,11 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 1.5cm
+\topmargin 1.5cm
+\rightmargin 1.5cm
+\bottommargin 2.5cm
+\headheight 1cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -116,8 +121,818 @@ ANALISI
 REQUISITI
 \end_layout
 
+\begin_layout Standard
+L’obiettivo dell’applicazione è creare un videogioco che implementi il gioco Battaglia Navale.
+\end_layout
+
+\begin_layout Standard
+Il giocatore deve avere come avversario un’intelligenza artificiale basilare pseudo-IA;
+ il gioco deve rispettare delle regole specifiche che si discostano leggermente da quelle classiche garantendo anche un’esperienza chiara e coinvolgente per l’utente.
+\end_layout
+
+\begin_layout Subsubsection
+Requisiti Funzionali
+\end_layout
+
+\begin_layout Standard
+L’applicazione dovrà consentire ai giocatori di:
+\end_layout
+
+\begin_layout Itemize
+Avviare una nuova partita.
+\end_layout
+
+\begin_layout Itemize
+Selezionare il livello di difficoltà dell’IA.
+\end_layout
+
+\begin_layout Itemize
+Posizionare le proprie navi su una griglia,
+ rispettando le regole del gioco:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Le navi non devono sovrapporsi.
+\end_layout
+
+\begin_layout Itemize
+Devono essere posizionate interamente dentro la griglia.
+\end_layout
+
+\begin_layout Itemize
+Possono avere orientamento orizzontale o verticale.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Effettuare attacchi sulla griglia avversaria scegliendo le coordinate del colpo.
+\end_layout
+
+\begin_layout Itemize
+Utilizzare diverse tipologie di proiettili,
+ con effetti differenti sul gioco.
+\end_layout
+
+\begin_layout Itemize
+Visualizzare lo stato della griglia,
+ distinguendo:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Le proprie navi e gli attacchi subiti.
+\end_layout
+
+\begin_layout Itemize
+Gli attacchi effettuati contro l’avversario.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Gestire la fine della partita,
+ determinando il vincitore quando tutte le navi di un giocatore sono affondate.
+\end_layout
+
+\begin_layout Itemize
+Mostrare messaggi informativi e di gioco,
+ per guidare il giocatore durante la partita.
+\end_layout
+
+\begin_layout Subsubsection
+Requisiti Non Funzionali
+\end_layout
+
+\begin_layout Standard
+Oltre alle funzionalità principali,
+ l’applicazione dovrà:
+\end_layout
+
+\begin_layout Itemize
+Essere accessibile e di facile uso per l'utente.
+\end_layout
+
+\begin_layout Itemize
+Garantire tempi di risposta rapidi per una fluida esperienza di gioco.
+\end_layout
+
+\begin_layout Itemize
+Fornire un’interfaccia chiara e leggibile,
+ con feedback sugli eventi di gioco.
+\end_layout
+
+\begin_layout Itemize
+Offrire un’esperienza equa e bilanciata,
+ assicurando che l’IA non sia né troppo prevedibile né imbattibile.
+\end_layout
+
+\begin_layout Itemize
+Essere estensibile,
+ permettendo future modifiche o aggiunte di nuove modalità di gioco.
+\end_layout
+
+\begin_layout Itemize
+Non richiedere connessione a Internet,
+ essendo pensata per il gioco in locale.
+\end_layout
+
+\begin_layout Subsubsection
+Diagramma dei casi d'uso
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename diagramma_casi_uso
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagramma dei casi d'uso
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il diagramma dei casi d’uso rappresenta le principali interazioni tra il giocatore e il sistema di gioco Battaglia Navale.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Attori Coinvolti
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\shape italic
+Giocatore.
+
+\shape default
+ L'utente umano che interagisce con l’applicazione.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+IA.
+ 
+\shape default
+L’intelligenza artificiale che funge da avversario automatico.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Casi d’Uso Principali
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\shape italic
+Avvia partita.
+
+\shape default
+ Il giocatore inizia una nuova partita.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Seleziona difficoltà IA.
+
+\shape default
+ Il giocatore sceglie il livello di sfida dell’intelligenza artificiale.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Posiziona le navi.
+
+\shape default
+ Il giocatore e l’IA dispongono le proprie navi sulla griglia,
+ rispettando le regole di posizionamento.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Effettua un attacco.
+
+\shape default
+ Durante il proprio turno,
+ il giocatore o l’IA scelgono una casella sulla griglia avversaria per tentare di colpire una nave nemica.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Sceglie tipo di proiettile.
+
+\shape default
+ Il giocatore può decidere quale proiettile utilizzare tra le opzioni disponibili.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Visualizza stato della griglia.
+
+\shape default
+ Il giocatore può controllare la propria griglia e quella d’attacco per analizzare l’andamento della partita.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Riceve messaggi di gioco.
+ 
+\shape default
+Il sistema fornisce notifiche sullo stato della partita (es.
+ colpi andati a segno,
+ navi affondate).
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Termina partita.
+
+\shape default
+ Il gioco rileva automaticamente il vincitore quando tutte le navi di un giocatore sono affondate.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Relazioni tra Attori e Casi d’Uso
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Il Giocatore interagisce con tutte le funzionalità del sistema,
+ poiché prende decisioni attive durante la partita.
+\end_layout
+
+\begin_layout Itemize
+L'IA è responsabile solo di due azioni:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Posizionare le proprie navi in modo automatico.
+\end_layout
+
+\begin_layout Enumerate
+Effettuare attacchi contro il giocatore,
+ secondo una logica variabile in base al livello di difficoltà selezionato.
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Subsection
 MODELLO DEL DOMINIO
+\end_layout
+
+\begin_layout Subsubsection
+Descrizione del dominio
+\end_layout
+
+\begin_layout Standard
+L’applicazione Battaglia Navale si svolge in un campo di gioco diviso in due griglie:
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+La griglia personale
+\shape default
+,
+ dove il giocatore posiziona le proprie navi e vengono indicati i colpi ricevuti oltre al livello di danno subito per ogni nave.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+La griglia d’attacco
+\shape default
+,
+ dove vengono registrati i colpi sparati contro l’avversario.
+\end_layout
+
+\begin_layout Standard
+Le navi vengono posizionate all’inizio del gioco e devono rispettare regole specifiche:
+ non sovrapporsi,
+ essere posizionate interamente nella griglia.
+ 
+\end_layout
+
+\begin_layout Standard
+Durante il gioco,
+ il giocatore e l’IA si alternano per effettuare attacchi,
+ cercando di affondare le navi avversarie.
+ Un colpo può colpire una nave o finire in acqua.
+\end_layout
+
+\begin_layout Standard
+Ogni nave è composta da caselle della griglia,
+ e ogni casella può avere diversi stati:
+\end_layout
+
+\begin_layout Itemize
+Vuota e non colpita (acqua).
+\end_layout
+
+\begin_layout Itemize
+Vuota,
+ colpita ma senza danno (acqua).
+\end_layout
+
+\begin_layout Itemize
+Occupata da una nave e non colpita.
+\end_layout
+
+\begin_layout Itemize
+Occupata da una nave,
+ colpita e con associato danno progressivo.
+\end_layout
+
+\begin_layout Itemize
+Affondata,
+ se tutte le caselle di una nave sono colpite.
+\end_layout
+
+\begin_layout Standard
+Esistono diverse tipologie di proiettili,
+ che possono infliggere più o meno danni a una casella.
+\end_layout
+
+\begin_layout Standard
+Il gioco termina quando tutte le navi di un giocatore sono affondate.
+\end_layout
+
+\begin_layout Subsubsection
+Identificazione delle Entità
+\end_layout
+
+\begin_layout Standard
+Analizzando il problema,
+ emergono le seguenti entità principali:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Giocatore
+\series default
+.
+ Partecipa alla partita e possiede una griglia.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+IA
+\series default
+.
+ Gioca contro il giocatore con una strategia variabile.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Griglia
+\series default
+.
+ Campo di gioco su cui vengono posizionate le navi e registrati i colpi.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Casella
+\series default
+.
+ Unità base della griglia,
+ può contenere o meno una parte di una nave.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Nave
+\series default
+.
+ Composta da più caselle,
+ può essere colpita e affondata.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Proiettile
+\series default
+.
+ Può avere effetti diversi sulla griglia (normale,
+ potente,
+ speciale).
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Partita
+\series default
+.
+ Gestisce il flusso di gioco e le condizioni di vittoria.
+\end_layout
+
+\begin_layout Subsubsection
+Relazioni tra le entità
+\end_layout
+
+\begin_layout Enumerate
+Un giocatore 
+\shape italic
+possiede
+\shape default
+ una griglia su cui posiziona le proprie navi.
+\end_layout
+
+\begin_layout Enumerate
+Una griglia è 
+\shape italic
+composta
+\shape default
+ da caselle che possono essere vuote o occupate da una nave.
+\end_layout
+
+\begin_layout Enumerate
+Una nave è 
+\shape italic
+composta
+\shape default
+ da più caselle e può essere affondata.
+\end_layout
+
+\begin_layout Enumerate
+Un giocatore o l’IA possono sparare un proiettile,
+ che colpisce una casella della griglia avversaria.
+\end_layout
+
+\begin_layout Enumerate
+La partita coordina i turni e determina la vittoria.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Entità
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Descrizione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Relazione con altre entità
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Partita
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Rappresenta l’intero flusso del gioco
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\nospellcheck off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Controlla le griglie dei giocatori
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\nospellcheck off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Gestisce i turni tra il giocatore e l'IA
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Griglia
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Campo di gioco del giocatore
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+È composta da più caselle
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Casella
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Singola unità della griglia
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Può contenere una nave
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Nave
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unità da affondare
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+È composta da più caselle
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Proiettile
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Oggetto che infligge danno in un attacco
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Colpisce una casella
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Riepilogo entità principali e loro relazioni
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Schema UML del dominio
+\end_layout
+
+\begin_layout Standard
+Questo schema è una rappresentazione concettuale che descrive le entità principali del dominio applicativo e le loro relazioni.
+ 
+\end_layout
+
+\begin_layout Standard
+Serve a comprendere e modellare il problema prima di iniziare l'implementazione del software.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename UML_dominio.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Schema ULM del dominio
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -126,6 +941,351 @@ DESIGN
 
 \begin_layout Subsection
 ARCHITETTURA
+\end_layout
+
+\begin_layout Standard
+L’architettura dell’applicazione Battleship-AI è progettata seguendo il pattern Model-View-Controller (MVC),
+ un design pattern che permette di separare la logica di business (Model),
+ la gestione dell’interfaccia utente (View) e il controllo del flusso dell’applicazione (Controller).
+\end_layout
+
+\begin_layout Standard
+L'uso di MVC permette di mantenere il codice modulare,
+ facilitando la manutenzione,
+ l'estendibilità e la possibilità di sostituire le interfacce utente (passaggio tra GUI e TUI) senza modificare il modello o il controller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename mvc_gen.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+MVC design pattern 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Panoramica dell'architettura MVC
+\end_layout
+
+\begin_layout Standard
+L’architettura si suddivide in tre componenti principali:
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+Model
+\end_layout
+
+\begin_layout Itemize
+Definisce la logica di gioco e le regole.
+\end_layout
+
+\begin_layout Itemize
+Contiene le classi che gestiscono griglie,
+ navi,
+ caselle,
+ proiettili e logica di battaglia.
+\end_layout
+
+\begin_layout Itemize
+Non conosce né interagisce direttamente con la View.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+View
+\end_layout
+
+\begin_layout Itemize
+Si occupa della rappresentazione dell'interfaccia utente.
+\end_layout
+
+\begin_layout Itemize
+Può essere implementata in modalità grafica (GUI) o testuale (TUI).
+\end_layout
+
+\begin_layout Itemize
+Riceve aggiornamenti dallo stato del Model e li mostra all'utente.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Controller
+\end_layout
+
+\begin_layout Itemize
+Gestisce il flusso di gioco e l'interazione tra Model e View.
+\end_layout
+
+\begin_layout Itemize
+Contiene la logica di gestione dei turni,
+ attacchi,
+ scelta dei proiettili e gestione dell'IA.
+\end_layout
+
+\begin_layout Itemize
+Non implementa logica di gioco,
+ ma chiama il Model per eseguire azioni e aggiorna la View di conseguenza.
+\end_layout
+
+\begin_layout Subsubsection
+Ruoli e Interazione tra i Componenti
+\end_layout
+
+\begin_layout Minisec
+Model
+\end_layout
+
+\begin_layout Standard
+Ruoli principali:
+\end_layout
+
+\begin_layout Itemize
+Gestisce la logica di gioco,
+ comprese le regole e lo stato della partita.
+\end_layout
+
+\begin_layout Itemize
+Contiene e aggiorna i dati relativi alla griglia,
+ alle navi e ai colpi sparati.
+\end_layout
+
+\begin_layout Itemize
+Fornisce informazioni sullo stato del gioco (es.
+ chi ha vinto,
+ quali navi sono affondate).
+\end_layout
+
+\begin_layout Standard
+Interazione con gli altri componenti:
+\end_layout
+
+\begin_layout Itemize
+Riceve comandi dal Controller per aggiornare lo stato della partita (es.
+ eseguire un turno,
+ applicare danni a una nave).
+\end_layout
+
+\begin_layout Itemize
+Restituisce informazioni al Controller,
+ come il risultato di un attacco o lo stato del gioco.
+\end_layout
+
+\begin_layout Minisec
+View
+\end_layout
+
+\begin_layout Standard
+Ruoli principali:
+\end_layout
+
+\begin_layout Itemize
+Mostra all'utente lo stato della partita (interfaccia testuale o grafica).
+\end_layout
+
+\begin_layout Itemize
+Riceve input dal giocatore e lo inoltra al Controller.
+\end_layout
+
+\begin_layout Itemize
+Aggiorna la visualizzazione in base agli eventi di gioco.
+\end_layout
+
+\begin_layout Standard
+Interazione con gli altri componenti:
+\end_layout
+
+\begin_layout Itemize
+Riceve dati dal Controller per aggiornare l'interfaccia utente.
+\end_layout
+
+\begin_layout Itemize
+Invia input utente al Controller,
+ che poi decide le azioni da eseguire.
+\end_layout
+
+\begin_layout Minisec
+Controller
+\end_layout
+
+\begin_layout Standard
+Ruoli principali:
+\end_layout
+
+\begin_layout Itemize
+Coordina il flusso di gioco,
+ decidendo quando e come aggiornare il Model o la View.
+\end_layout
+
+\begin_layout Itemize
+Gestisce la logica dell’intelligenza artificiale.
+\end_layout
+
+\begin_layout Itemize
+Garantisce la separazione tra Model e View,
+ agendo come mediatore.
+\end_layout
+
+\begin_layout Standard
+Interazione con gli altri componenti:
+\end_layout
+
+\begin_layout Itemize
+Riceve input dalla View e lo traduce in comandi per il Model.
+\end_layout
+
+\begin_layout Itemize
+Interroga il Model per ottenere lo stato della partita.
+\end_layout
+
+\begin_layout Itemize
+Aggiorna la View in base ai cambiamenti avvenuti nel Model.
+\end_layout
+
+\begin_layout Subsubsection
+Identificazione delle Classi Chiave
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+alignment document
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename mvc.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interfacce del MVC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Minisec
+Model
+\end_layout
+
+\begin_layout Standard
+Punto di ingresso:
+ ModelInterface.java Definisce l’insieme di operazioni eseguibili sulla logica di gioco e permette al Controller di interagire con il Model senza dipendere dall’implementazione concreta.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Classi che implementano il Model:
+\end_layout
+
+\begin_layout Itemize
+Battle.
+ Contiene la logica della partita e implementa ModelInterface.
+\end_layout
+
+\begin_layout Minisec
+View
+\end_layout
+
+\begin_layout Standard
+Punto di ingresso:
+ ViewInterface.java Definisce un'interfaccia comune per la gestione dell'interfaccia utente.
+ Consente di gestire sia l’interfaccia testuale (TUI) che quella grafica (GUI) senza modificare il Controller.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Classi che implementano la View:
+\end_layout
+
+\begin_layout Itemize
+Gui.
+ Implementa ViewInterface,
+ fornendo un’interfaccia grafica.
+\end_layout
+
+\begin_layout Itemize
+Tui.
+ Implementa ViewInterface,
+ fornendo un’interfaccia testuale.
+\end_layout
+
+\begin_layout Minisec
+Controller
+\end_layout
+
+\begin_layout Standard
+Punto di ingresso:
+ ControllerInterface.java Definisce i metodi fondamentali per la gestione della partita e il posizionamento delle navi.
+ Separa la logica del gioco dalla gestione dell’interfaccia.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Classi che implementano il Controller:
+\end_layout
+
+\begin_layout Itemize
+GameController.
+ Implementa ControllerInterface,
+ gestisce l’interazione tra Model e View.
 \end_layout
 
 \begin_layout Subsection
@@ -163,25 +1323,220 @@ il cuore
 \end_layout
 
 \begin_layout Standard
-Vi sono quattri JUnit test:
+Vi sono quattro test JUnit:
 \end_layout
 
 \begin_layout Enumerate
-TestCasella.java
+
+\series bold
+GridSquareTest.java
+\series default
+ Testa il comportamento della classe GridSquare.java,
+ che rappresenta una singola casella della griglia.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\shape italic
+gridSquareCreationTest()
+\shape default
+ Verifica che una casella venga creata correttamente con coordinate e valori di default.
 \end_layout
 
 \begin_layout Enumerate
-TestGriglia.java
+
+\shape italic
+customGridSquareCreationTest()
+\shape default
+ Testa la creazione di una casella con valori personalizzati.
 \end_layout
 
 \begin_layout Enumerate
-TestNave.java
+
+\shape italic
+validDamageTest()
+\shape default
+ Verifica che una casella possa ricevere danno e memorizzarlo correttamente.
 \end_layout
 
 \begin_layout Enumerate
-TestBattagliaNavale.java
+
+\shape italic
+invalidDamageTest() 
+\shape default
+Testa il comportamento quando si cerca di impostare un livello di danno negativo o oltre il limite massimo.
 \end_layout
 
+\begin_layout Enumerate
+
+\shape italic
+isOccupiedTest() 
+\shape default
+Controlla che si possa impostare una casella come occupata e che il valore venga aggiornato correttamente.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+isHitTest()
+\shape default
+ Controlla che si possa impostare una casella come colpita e che il valore venga aggiornato correttamente.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+GridTest.java 
+\series default
+Testa il comportamento della classe Grid.java,
+ che gestisce l’intera griglia del gioco.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\shape italic
+validShipPositioningTest()
+\shape default
+ Verifica che una nave possa essere posizionata correttamente in una zona libera della griglia.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+outOfGridPositioningTest()
+\shape default
+ Tenta di posizionare una nave fuori dai limiti della griglia e verifica che venga lanciata un eccezione.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+placeOverOccupiedTest()
+\shape default
+ Verifica che non sia possibile sovrapporre due navi e che quindi venga lanciata una eccezione.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+everythingIsSunkTest()
+\shape default
+ Controlla che la griglia abbia tutte le navi affondate.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+ShipTest.java 
+\series default
+Testa il comportamento della classe Ship.java,
+ che rappresenta una nave composta da più caselle.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\shape italic
+partialDamageTest()
+\shape default
+ Crea una nave composta da tre caselle,
+ alcune con danno parziale e controlla che la nave non venga considerata affondata.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+isSunkTest()
+\shape default
+ Crea una nave con tutte le caselle completamente danneggiate e controlla che il metodo isSunk() restituisca true.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+fullDamageSunkTest() 
+\shape default
+Simula un attacco progressivo:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Colpisce la nave più volte fino a farla affondare completamente.
+\end_layout
+
+\begin_layout Enumerate
+Dopo ogni colpo,
+ controlla che isSunk() restituisca false fino al colpo finale.
+\end_layout
+
+\begin_layout Enumerate
+Dopo il colpo finale,
+ isSunk() deve restituire true.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+BattleTest.java 
+\series default
+Testa il comportamento della classe Battle.java,
+ che gestisce l’intera partita.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\shape italic
+notEndingTurnTest()
+\shape default
+ Simula un turno in cui il giocatore manca il bersaglio (colpo a vuoto).
+ Controlla che:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Il turno passi all'avversario.
+\end_layout
+
+\begin_layout Enumerate
+Il gioco non sia terminato (isGameOver() deve restituire false).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\shape italic
+endingTurnTest()
+\shape default
+ Simula un colpo che affonda l'ultima nave dell’avversario.
+ Controlla che:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Il gioco venga dichiarato terminato (isGameOver() restituisce true).
+\end_layout
+
+\begin_layout Enumerate
+Il vincitore sia il giocatore che ha colpito (getWinner() restituisce il vincitore corretto).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\shape italic
+executeTurnAfterGameOverTest()
+\shape default
+ Simula il caso in cui un giocatore tenta di sparare dopo la fine della partita e verifica che venga lanciata una eccezione.
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 METODOLOGIA DI LAVORO
 \end_layout

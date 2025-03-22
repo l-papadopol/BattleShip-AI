@@ -1,5 +1,5 @@
 /*
- * TestNave.java test per verificare cosa sto combinando in Nave.jave :P
+ * ShipTest.java test per verificare cosa sto combinando in Nave.jave :P
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package test;

@@ -1,5 +1,5 @@
 /*
- * TestCasella.java test per Casella.java
+ * GridSquareTest.java test per Casella.java
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package test;

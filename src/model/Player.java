@@ -81,7 +81,7 @@ public class Player {
      *  Verifica se il giocatore ha perso (tutte le navi affondate)
      */
     public boolean heLost() {
-        return personalGrid.isEverythinkSunk();
+        return personalGrid.isEverythingSunk();
     }
 
     /*

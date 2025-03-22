@@ -1,5 +1,5 @@
 /*
- * TestBBattagliaNavale.java test di integrazione del model
+ * BattleTest.java test di integrazione del model
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package test;
