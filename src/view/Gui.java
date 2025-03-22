@@ -10,12 +10,14 @@
 package view;
 
 import javax.swing.*;
+
+import model.entities.Grid;
+import view.components.GridPanel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
-
-import model.Grid;
 
 public class Gui implements ViewInterface {
     private JFrame frame;

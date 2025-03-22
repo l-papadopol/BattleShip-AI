@@ -10,7 +10,7 @@ import java.awt.Point;
 
 import org.junit.jupiter.api.Test;
 
-import model.GridSquare;
+import model.entities.GridSquare;
 
 class GridSquareTest {
 

@@ -3,7 +3,10 @@
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
 package test;
-import model.*;
+import model.builders.ShipBuilder;
+import model.entities.GridSquare;
+import model.entities.Ship;
+import model.entities.StandardProjectile;
 
 import static org.junit.jupiter.api.Assertions.*;
 

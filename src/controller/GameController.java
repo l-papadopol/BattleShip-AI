@@ -4,13 +4,16 @@
  */
 package controller;
 
-import model.Player;
-
 import java.util.Random;
 
+import controller.handlers.PcTurnHandler;
+import controller.handlers.PlayerTurnHandler;
+import controller.handlers.ProjectileHandler;
+import controller.handlers.ShipPlacingHandler;
 import model.ModelInterface;
-import view.Messages;
+import model.entities.Player;
 import view.ViewInterface;
+import view.components.Messages;
 
 public class GameController implements ControllerInterface {
 	private ModelInterface battle;

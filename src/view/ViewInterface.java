@@ -6,7 +6,8 @@ package view;
 
 import java.awt.Point;
 
-import model.Grid;
+import model.entities.Grid;
+import view.components.Messages;
 
 public interface ViewInterface {
 	

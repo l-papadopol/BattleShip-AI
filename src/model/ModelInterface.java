@@ -6,6 +6,9 @@ package model;
 
 import java.awt.Point;
 
+import model.entities.Player;
+import model.entities.Projectile;
+
 public interface ModelInterface {
      // Esegue il turno del giocatore corrente.
     boolean executeTurn(Point coordinate, Projectile proiettile);

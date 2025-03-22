@@ -7,7 +7,9 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import java.awt.Point;
-import model.*;
+import model.builders.ShipBuilder;
+import model.entities.Grid;
+import model.entities.Ship;
 
 public class GridTest {
 

@@ -9,6 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.Point;
 import model.*;
+import model.builders.ShipBuilder;
+import model.entities.Player;
+import model.entities.Ship;
+import model.entities.SpecialProjectile;
+import model.entities.StandardProjectile;
 
 public class BattleTest {
 

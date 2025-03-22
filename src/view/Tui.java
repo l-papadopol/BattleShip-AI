@@ -5,8 +5,9 @@
 package view;
 
 import java.util.Scanner;
-import model.GridSquare;
-import model.Grid;
+
+import model.entities.Grid;
+import model.entities.GridSquare;
 
 public class Tui implements ViewInterface {
     private Scanner scanner;

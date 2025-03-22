@@ -6,6 +6,9 @@ package model;
 
 import java.awt.Point;
 
+import model.entities.Player;
+import model.entities.Projectile;
+
 public class Battle implements ModelInterface {
     private Player player1;
     private Player player2;
