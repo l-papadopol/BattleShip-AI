@@ -113,6 +113,40 @@ Relazione per il progetto del Corso di PMO
 Papadopol Lucian-Ioan
 \end_layout
 
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename esempio_gioco.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 ANALISI
 \end_layout
@@ -422,6 +456,13 @@ Effettuare attacchi contro il giocatore,
 
 \end_deeper
 \end_deeper
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 MODELLO DEL DOMINIO
 \end_layout
@@ -1684,7 +1725,7 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1856,6 +1897,10 @@ Implementazione
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+
 \series bold
 Modalità Facile – Tiro completamente casuale
 \end_layout
@@ -1886,7 +1931,7 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1952,7 +1997,7 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2022,7 +2067,7 @@ placement H
 alignment document
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2056,6 +2101,13 @@ Flowchart algoritmo di attacco pseudo-IA - livello difficile
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 SVILUPPO
 \end_layout
@@ -2071,22 +2123,26 @@ test
 \series default
 .
  
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
 Ho scelto di testare 
 \begin_inset Quotes eld
 \end_inset
 
-il cuore
+il core
 \begin_inset Quotes erd
 \end_inset
 
  della logica di gioco ovvero l'insieme delle entità e delle regole cui il buon funzionamento impatta maggiormente sulla funzionalità complessiva dell'applicazione.
  
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
+
+\begin_inset Newline newline
+\end_inset
+
 Vi sono quattro test JUnit:
 \end_layout
 
@@ -2321,8 +2377,246 @@ executeTurnAfterGameOverTest()
 METODOLOGIA DI LAVORO
 \end_layout
 
+\begin_layout Standard
+Lo sviluppo del progetto è stato svolto interamente in autonomia,
+ senza attività di gruppo.
+ La scelta di lavorare da solo ha richiesto un’organizzazione personale efficace e una pianificazione attenta,
+ al fine di gestire in modo equilibrato il tempo dedicato all’analisi,
+ alla progettazione,
+ allo sviluppo e alla fase di test e rifinitura del codice.
+\begin_inset Newline newline
+\end_inset
+
+Ho adottato una mia personale metodologia di lavoro ispirata a pratiche agili,
+ modellata sulle esigenze del mio tempo disponibile.
+ In particolare,
+ ho preferito suddividere l’attività settimanale in due momenti distinti:
+\end_layout
+
+\begin_layout Itemize
+Durante la settimana,
+ quando avevo a disposizione blocchi di tempo più brevi (in media un’ora),
+ mi sono concentrato sullo sviluppo e test di piccole unità funzionali (classi,
+ metodi,
+ strategie specifiche),
+ lavorando in modo incrementale e isolato.
+ Questa fase è stata utile per sperimentare,
+ identificare errori in modo tempestivo e mantenere costante il contatto con il progetto.
+\end_layout
+
+\begin_layout Itemize
+Durante il fine settimana,
+ ho dedicato sessioni più estese al refactoring,
+ all’integrazione dei moduli sviluppati nei giorni precedenti e alla pulizia del codice,
+ consolidando la coerenza architetturale ad esempio applicando pattern come MVC,
+ Strategy,
+ Factory.
+\end_layout
+
+\begin_layout Standard
+Nel corso del progetto,
+ ho seguito un processo iterativo così strutturato:
+\end_layout
+
+\begin_layout Itemize
+Analisi del problema e dei requisiti – individuazione delle funzionalità attese e delle entità del dominio.
+\end_layout
+
+\begin_layout Itemize
+Progettazione modulare e architetturale – separazione chiara dei ruoli,
+ uso di interfacce per disaccoppiamento,
+ riflessioni sull’applicazione di design pattern.
+\end_layout
+
+\begin_layout Itemize
+Sviluppo incrementale – realizzazione dei package:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+model.* per la logica di gioco e le entità;
+\end_layout
+
+\begin_layout Itemize
+view.* per la GUI/TUI e i componenti di output;
+\end_layout
+
+\begin_layout Itemize
+controller.* per la gestione del flusso di gioco;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Testing e validazione – uso di test JUnit per verificare le funzionalità 
+\begin_inset Quotes eld
+\end_inset
+
+core
+\begin_inset Quotes erd
+\end_inset
+
+ fondamentali.
+\end_layout
+
+\begin_layout Itemize
+Refactoring e documentazione – pulizia del codice,
+ miglioramento della leggibilità e commenti,
+ stesura della relazione.
+\end_layout
+
 \begin_layout Subsection
 NOTE DI SVILUPPO
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Feature avanzate del linguaggio che sono state utilizzate
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Uso di lambda expressions
+\shape default
+
+\begin_inset Newline newline
+\end_inset
+
+Utilizzate in modo puntuale,
+ ad esempio nella scrittura di test unitari per la verifica di eccezioni nel test 
+\shape italic
+GridSquareTest.java
+\shape default
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+lstparams "language=Java,basicstyle={\small}"
+inline false
+status open
+
+\begin_layout Plain Layout
+\align left
+
+Exception exception = assertThrows(IllegalArgumentException.class,
+ () -> { ...
+ });
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Uso di Stream API combinate con lambda expressions
+\shape default
+
+\begin_inset Newline newline
+\end_inset
+
+Impiego stream() in 
+\shape italic
+Ship.java
+\shape default
+ su tutte le caselle che compongono una nave per verificarne l'affondamento completo.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+lstparams "language=Java,basicstyle={\small}"
+inline false
+status open
+
+\begin_layout Plain Layout
+\align left
+
+return gridSquares.stream()
+\end_layout
+
+\begin_layout Plain Layout
+\align left
+
+	.allMatch(gridSquare -> gridSquare.getDamageLevel() 
+\end_layout
+
+\begin_layout Plain Layout
+\align left
+
+				>= gridSquare.getMaxResistance());
+\end_layout
+
+\end_inset
+
+Impiego di stream() in Grid.java per verificare che tutte le navi siano affondate.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+lstparams "language=Java,basicstyle={\small}"
+inline false
+status open
+
+\begin_layout Plain Layout
+\align left
+
+return ships.stream().allMatch(ship -> ship.isSunk());
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Sviluppo di algoritmi particolarmente interessanti
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+I seguenti algoritmi sono stati trattati in dettaglio nella sezione 2.2 
+\begin_inset Quotes eld
+\end_inset
+
+Design dettagliato
+\begin_inset Quotes erd
+\end_inset
+
+ sottosezione 2.2.3,
+ si elencano per completezza.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Modalità "Hunt and Target" (livello IA medio)
+\shape default
+:
+ implementazione di una strategia dinamica che,
+ a seguito di un colpo a segno,
+ seleziona le celle adiacenti come target,
+ evitando quelle già colpite.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Modalità "Pseudo-AI" (livello IA difficile)
+\shape default
+:
+ calcolo di un punteggio euristico per ogni cella della griglia in base alla disposizione e agli spazi disponibili,
+ simulando un comportamento intelligente.
+ Viene poi stimata una probabilità per guidare la scelta del tipo di proiettile.
 \end_layout
 
 \end_body
