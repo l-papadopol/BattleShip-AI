@@ -1,7 +1,3 @@
-/*
- * 	GridPanel.java disegna una griglia graficamente decente
- *  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
- */
 package view.components;
 
 import javax.swing.*;
@@ -11,41 +7,54 @@ import model.entities.GridSquare;
 
 import java.awt.*;
 
+/**
+ * GridPanel.java disegna una griglia graficamente decente per il gioco Battaglia Navale.
+ * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
+ *
+ * Questa classe estende {@link JPanel} e si occupa di disegnare la griglia di gioco, le navi, i colpi andati a vuoto e 
+ * i livelli di danno applicati alle caselle. 
+ * Sono disegnati anche i contorni della griglia e le etichette di riferimento per righe e colonne.
+ */
 public class GridPanel extends JPanel {
-    private static final long serialVersionUID = 1L; // Non ho capito bene a cosa serve ma se lo metto non mi da warning LOL
+    private static final long serialVersionUID = 1L; // Identificativo della classe per la serializzazione
     private Grid grid;
     private final int gridSquareSize = 50; // Dimensione della singola cella in pixel
-  
-    private final int margin = 30; // Margine per le etichette (in alto e a sinistra)
+    private final int margin = 30;         // Margine per le etichette (in alto e a sinistra)
 
+    /**
+     * Costruisce un nuovo pannello di griglia con una dimensione di default.
+     */
     public GridPanel() {
-
-        setPreferredSize(new Dimension(600, 600));       // Dimensione della finestra di default
+        setPreferredSize(new Dimension(600, 600));
     }
 
-    /*
-     *  Questo è il metodo che si occupa di ricreare la griglia. Questo va chiamato per aggiornare il disegno.
+    /**
+     * Imposta la griglia da disegnare e aggiorna la dimensione del pannello in base alla dimensione della griglia.
+     *
+     * @param grid la griglia da visualizzare
      */
     public void setGrid(Grid grid) {
         this.grid = grid;
         if (grid != null) {
             int dim = grid.getSize();
-            // Imposto la dimensione del pannello includendo il margine per le etichette
+            // Imposta la dimensione del pannello includendo il margine per le etichette
             setPreferredSize(new Dimension(dim * gridSquareSize + margin, dim * gridSquareSize + margin));
             revalidate();
         }
         repaint();
     }
     
-    /*
-     * Questo metodo sovrascrive il paintComponent del JPanel disegnando la gliglia di gioco
-     * Disegna:
-     * - Sfondo azzurro
-     * - Griglia a scacchetti
-     * - Navi piazzate (caselle verdi)
-     * - Caselle colpite in gradi di colore evocativi, nella griglia personale
-     * - Caselle colpite con indicazione numerica del livello di danno nella griglia di attacco
-     * - Colpi andati a vuoto "o" e zone di mare "~"
+    /**
+     * Sovrascrive il metodo paintComponent per disegnare la griglia di gioco.
+     * Vengono disegnati:
+     * <ul>
+     *   <li>Lo sfondo della griglia (azzurro)</li>
+     *   <li>Le celle colorate in base allo stato: navi, danni, acqua o colpi a vuoto</li>
+     *   <li>Le linee della griglia</li>
+     *   <li>Le etichette di riferimento per righe e colonne</li>
+     * </ul>
+     *
+     * @param g il contesto grafico utilizzato per disegnare
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -58,27 +67,25 @@ public class GridPanel extends JPanel {
         int dim = grid.getSize();
         int gridDimension = dim * gridSquareSize;  // Area della griglia
 
-        // Disegno lo sfondo sull'area della griglia spostata del margine
+        // Disegno lo sfondo azzurro per l'area della griglia, spostato del margine
         grid2D.setColor(new Color(173, 216, 230));
         grid2D.fillRect(margin, margin, gridDimension, gridDimension);
 
-        // Applico antialiasing per migliorare la resa grafica
+        // Abilito l'antialiasing per una migliore resa grafica
         grid2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Ottengo le caselle e imposto un margine per una migliore resa visiva
         GridSquare[][] gridSquares = grid.getGridSquares();
-        int clearance = 4;
+        int clearance = 4; // Spazio di clearance all'interno di ogni cella
 
-        // Ciclo per processare ogni casella della griglia
+        // Ciclo per processare ogni cella della griglia
         for (int y = 0; y < dim; y++) {
             for (int x = 0; x < dim; x++) {
                 GridSquare gridSquare = gridSquares[x][y];
-                // Sposto la griglia in base al margine
+                // Calcolo la posizione della cella considerando il margine
                 int gridSquareX = margin + x * gridSquareSize;
                 int gridSquareY = margin + y * gridSquareSize;
 
-                // Se la casella è occupata, cioè contiene una nave
-                // viene colorata in base al livello di danno.
+                // Se la cella è occupata da una nave, viene colorata in base al livello di danno
                 if (gridSquare.getIsOccupied()) {
                     int damageLevel = gridSquare.getDamageLevel();
                     Color gridSquareColour;
@@ -96,8 +103,7 @@ public class GridPanel extends JPanel {
                     grid2D.setColor(gridSquareColour);
                     grid2D.fillRect(gridSquareX + clearance, gridSquareY + clearance, gridSquareSize - 2 * clearance, gridSquareSize - 2 * clearance);
                 }
-                // Se la casella non è occupata ma è stata colpita
-                // disegno un simbolo per indicare l'effetto del colpo.
+                // Se la cella non è occupata ma è stata colpita, disegno un simbolo al centro
                 else if (gridSquare.getIsHit()) {
                     String damageSymbol;
                     if (gridSquare.getDamageLevel() > 0) {
@@ -114,8 +120,7 @@ public class GridPanel extends JPanel {
                     }
                     writeCenteredText(grid2D, damageSymbol, gridSquareX, gridSquareY, gridSquareSize, Font.BOLD);
                 }
-                // Caso in cui la casella non è occupata e non è stata colpita
-                // disegno il simbolo "~" per rappresentare l'acqua
+                // Se la cella non è occupata e non è stata colpita, rappresenta l'acqua con "~"
                 else {
                     writeCenteredText(grid2D, "~", gridSquareX, gridSquareY, gridSquareSize, Font.PLAIN);
                 }
@@ -134,27 +139,26 @@ public class GridPanel extends JPanel {
             grid2D.drawLine(margin, y, margin + gridDimension, y);
         }
         
-        // Disegno le etichette di riferimento
+        // Disegno le etichette di riferimento per le colonne (in alto)
         grid2D.setColor(Color.BLACK);
         Font originalFont = grid2D.getFont();
         Font labelFont = originalFont.deriveFont(Font.PLAIN, 12);
         grid2D.setFont(labelFont);
         FontMetrics fm = grid2D.getFontMetrics(labelFont);
         
-        // Etichette orizzontali sul bordo superiore (0, 1, 2, ...)
         for (int x = 0; x < dim; x++) {
             String label = String.valueOf(x);
             int labelWidth = fm.stringWidth(label);
             int posX = margin + x * gridSquareSize + (gridSquareSize - labelWidth) / 2;
-            int posY = margin - 5; // posizionato sopra la griglia
+            int posY = margin - 5; // Posizionato sopra la griglia
             grid2D.drawString(label, posX, posY);
         }
         
-        // Etichette verticali sul bordo sinistro (0, 1, 2, ...)
+        // Disegno le etichette di riferimento per le righe (a sinistra)
         for (int y = 0; y < dim; y++) {
             String label = String.valueOf(y);
             int labelWidth = fm.stringWidth(label);
-            int posX = margin - labelWidth - 5; // posizionato a sinistra della griglia
+            int posX = margin - labelWidth - 5; // Posizionato a sinistra della griglia
             int posY = margin + y * gridSquareSize + (gridSquareSize + fm.getAscent()) / 2 - 2;
             grid2D.drawString(label, posX, posY);
         }
@@ -163,13 +167,21 @@ public class GridPanel extends JPanel {
         grid2D.setFont(originalFont);
     }
     
-    /*
-     *  Metodo che scrive centrandolo, un testo di un font qualsiasi e di dimensione qualsiasi nella cella
+    /**
+     * Scrive un testo centrato all'interno di una cella della griglia.
+     *
+     * @param g il contesto grafico utilizzato per disegnare
+     * @param text il testo da scrivere
+     * @param gridSquareX la coordinata X della cella
+     * @param gridSquareY la coordinata Y della cella
+     * @param gridSquareSize la dimensione della cella
+     * @param stileFont lo stile del font da utilizzare (es. {@link Font#BOLD} o {@link Font#PLAIN})
      */
     private void writeCenteredText(Graphics2D g, String text, int gridSquareX, int gridSquareY, int gridSquareSize, int stileFont) {
-        // Imposta esplicitamente il colore a nero, così da non ereditare quello precedente sennò vengono cose strane
+        // Imposta il colore a nero per il testo
         g.setColor(Color.BLACK);
         Font originalFont = g.getFont();
+        // Imposta il font con la dimensione relativa alla cella
         Font font = originalFont.deriveFont(stileFont, gridSquareSize * 0.6f);
         g.setFont(font);
         FontMetrics dimensions = g.getFontMetrics(font);

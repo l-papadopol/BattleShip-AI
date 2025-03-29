@@ -67,8 +67,8 @@ public class GameController implements ControllerInterface {
     /**
      * Avvia la battaglia.
      * Visualizza il messaggio di inizio partita, piazza le navi e gestisce il turno di gioco,
-     * alternando il turno tra il giocatore umano e il PC. Al termine della partita,
-     * mostra il vincitore e chiude la vista.
+     * alternando il turno tra il giocatore umano e il PC. 
+     * Al termine della partita mostra il vincitore e chiude la vista.
      */
     @Override
     public void startBattle() {
@@ -106,7 +106,6 @@ public class GameController implements ControllerInterface {
      */
     private void applyBonus(Player currentPlayer) {
         Random random = new Random();
-        // Bonus attivo con probabilità del 10%
         if (random.nextDouble() < 0.1) { 
             if (random.nextBoolean()) {
                 // Bonus: 2 colpi speciali

@@ -1,9 +1,11 @@
-/*
- * Classe per la centralizzazione dei messaggi da mostrare all'utente.
- * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
- */
 package view.components;
 
+/**
+ * Classe per la centralizzazione dei messaggi da mostrare all'utente.
+ * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
+ *
+ * Questa classe fornisce metodi statici per ottenere i messaggi usati nell'interfaccia utente, realizzando una gestione centralizzata delle stringhe di output.
+ */
 public class Messages {
 
     public static String gameStart() {
@@ -99,41 +101,39 @@ public class Messages {
     }
     
     public static String invalidFormat() {
-    	return "Formato non valido. Inserisci due numeri separati da uno spazio.";
+        return "Formato non valido. Inserisci due numeri separati da uno spazio.";
     }
     
     public static String outOfRange(int dim) {
-    	return "Le coordinate devono essere comprese tra 0 e " + (dim - 1);
+        return "Le coordinate devono essere comprese tra 0 e " + (dim - 1);
     }
   
     public static String invalidNumber() {
-    	return "Inserisci numeri validi.";
+        return "Inserisci numeri validi.";
     }
 
-	public static String orientationError() {
-		// TODO Auto-generated method stub
-		return "Errore: inserisci H oppure V!";
-	}
+    public static String orientationError() {
+        return "Errore: inserisci H oppure V!";
+    }
 
-	public static String askOrientation() {
-		return "H orientamento orizzontale | V orientamento verticale.";
-	}
+    public static String askOrientation() {
+        return "H orientamento orizzontale | V orientamento verticale.";
+    }
     
-	public static String bonusReceived(String bonusType, int qty) {
-		return "Hai ricevuto in bonus " + qty + " " + bonusType;
-	}
-	
-	public static String askPlayerName() {
-		return "Inserisci il nome del giocatore:";
-	}
+    public static String bonusReceived(String bonusType, int qty) {
+        return "Hai ricevuto in bonus " + qty + " " + bonusType;
+    }
+    
+    public static String askPlayerName() {
+        return "Inserisci il nome del giocatore:";
+    }
 
-	public static String askDifficultyLevel() {
-		return "Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile";
-	}
+    public static String askDifficultyLevel() {
+        return "Scegli livello di difficoltà: 1 = Semplice, 2 = Medio, 3 = Difficile";
+    }
 
-	public static String askView() {
-		return "Scegli interfaccia: 1 = TUI, 2 = GUI";
-	}
-
-
+    public static String askView() {
+        return "Scegli interfaccia: 1 = TUI, 2 = GUI";
+    }
 }
+

@@ -9,20 +9,35 @@ import model.entities.Ship;
 import view.ViewInterface;
 import view.components.Messages;
 
+/**
+ * Classe helper che gestisce il posizionamento delle navi per i giocatori.
+ * Fornisce metodi per posizionare la flotta del giocatore umano e quella del giocatore PC.
+ * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
+ */
 public class ShipPlacingHandler {
     private ViewInterface view;
     private Random random;
 
+    /**
+     * Costruisce un nuovo ShipPlacingHandler.
+     *
+     * @param view la vista del gioco, utilizzata per mostrare messaggi e lo stato della griglia
+     */
     public ShipPlacingHandler(ViewInterface view) {
         this.view = view;
         this.random = new Random();
     }
 
-    /*
-     * Posiziona tutte le navi per il giocatore umano
+    /**
+     * Posiziona tutte le navi per il giocatore umano.
+     * Visualizza il messaggio di posizionamento della flotta, mostra la griglia attualee 
+     * chiede all'utente di inserire le coordinate di partenza e l'orientamento per ciascuna nave.
+     *
+     * @param player il giocatore umano che posiziona la flotta
+     * @param shipLenghts un array di interi che rappresenta le lunghezze delle navi da posizionare
      */
     public void placeHumanFleet(Player player, int[] shipLenghts) {
-        view.showMsg(Messages.fleetPlacing(player.getName()));;
+        view.showMsg(Messages.fleetPlacing(player.getName()));
         int dim = player.getPersonalGrid().getSize();
 
         for (int lenght : shipLenghts) {
@@ -50,8 +65,13 @@ public class ShipPlacingHandler {
         }
     }
 
-    /*
-     * Posiziona tutte le navi per il giocatore PC, in modo casuale.
+    /**
+     * Posiziona tutte le navi per il giocatore PC in modo casuale.
+     * Viene visualizzato un messaggio indicante che il PC sta posizionando la flotta, e per ciascuna nave viene scelto casualmente 
+     * un punto e un orientamento fino a trovare una posizione valida.
+     *
+     * @param player il giocatore PC che posiziona la flotta
+     * @param shipLenghts un array di interi che rappresenta le lunghezze delle navi da posizionare
      */
     public void placePcFleet(Player player, int[] shipLenghts) {
         view.showMsg(Messages.pcIsPositioningFleet());
@@ -76,4 +96,5 @@ public class ShipPlacingHandler {
         }
     }
 }
+
 

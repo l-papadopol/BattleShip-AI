@@ -12,7 +12,7 @@ import view.ViewInterface;
 import view.components.Messages;
 
 /**
- * Classe che implementa la logica di gioco semplice.
+ * Classe che implementa la logica di gioco livello "semplice".
  * Spara a caso colpi di tipo casuale.
  * (C) 2025 Papadopol Lucian Ioan - licenza CC BY-NC-ND 3.0 IT
  */
@@ -24,7 +24,7 @@ public class EasyStrategy implements AITurnStrategy {
     private Random random = new Random();
 
     /**
-     * Strategia "facile"
+     * Strategia "semplice"
      *
      * @param battle il modello del gioco
      * @param view la vista del gioco
