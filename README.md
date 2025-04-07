@@ -109,10 +109,10 @@ Puoi compilare il progetto usando lo script `compilami.sh` che ho fornito:
 
 ```bash
 # Rendi lo script eseguibile
-chmod 777 src/compilami.sh
+chmod 777 compilami.sh
 
 # Esegui lo script
-./src/compilami.sh
+./compilami.sh
 ```
 
 Questo script:
