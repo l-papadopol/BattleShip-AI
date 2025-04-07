@@ -2,7 +2,6 @@
 
 BattleShip AI è un progetto Java che implementa il classico gioco "Battaglia Navale" con regole rivisitate ed una forma di pseudo-intelligenza artificiale.  
 
-
 ---
 
 ## Caratteristiche
@@ -104,9 +103,9 @@ docs/
 
 ## Come Compilare ed Eseguire
 
-Puoi compilare il progetto facilmente usando il comodo script `compilami.sh` fornito:
+Puoi compilare il progetto usando lo script `compilami.sh` che ho fornito:
 
-### 1. Con `compilami.sh`
+### 1. Compilazione con `compilami.sh`
 
 ```bash
 # Rendi lo script eseguibile
@@ -132,7 +131,7 @@ java -cp bin main.Main
 
 ### 3. Requisiti
 
-- Java JDK 8 o superiore installato. Il progetto è stato sviluppato su Debian Linux con Eclipse  e "gira" con OpenJDK 21.0.6
+- Il progetto è stato sviluppato su Debian Linux con Eclipse  e "gira" con OpenJDK 21.0.6
 
 ---
 
@@ -143,8 +142,6 @@ Sono disponibili i seguenti documenti utili nella cartella `docs/`:
 - **JavaDoc Generata** – Documentazione tecnica automatica delle classi.
 
 - **Relazione del Progetto** – Documento descrittivo del progetto, delle scelte progettuali e delle implementazioni, relazione finale per l'esame di Programmazione e Modellazione ad Oggetti.
-
-
 
 ---
 
