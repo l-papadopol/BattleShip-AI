@@ -2805,13 +2805,7 @@ status open
 
 \begin_layout Plain Layout
 Preso da:
- https://towardsdatascience.com/coding-an-intelligent-battleship-agent-bf0064a4b319/
-\begin_inset Newline newline
-\end_inset
-
-ma per la sola parte iniziale dell'articolo.
- Codice Python non traducibile in Java direttamente.
- Re-implementato in base a quello che ho capito.
+ https://www.datagenetics.com/blog/december32011/
 \end_layout
 
 \end_inset
@@ -2836,14 +2830,8 @@ Modalità "Pseudo-AI" (livello IA difficile)
 status open
 
 \begin_layout Plain Layout
-Preso spunto come prima da:
+Preso da:
  https://towardsdatascience.com/coding-an-intelligent-battleship-agent-bf0064a4b319/
-\begin_inset Newline newline
-\end_inset
-
-ma per la sola parte del calcolo probabilistico.
- Codice Python non traducibile in Java direttamente.
- Re-implementato in base a quello che ho capito.
 \end_layout
 
 \end_inset
