@@ -156,16 +156,24 @@ REQUISITI
 \end_layout
 
 \begin_layout Standard
-L’obiettivo dell’applicazione è creare un videogioco che implementi il gioco Battaglia Navale.
-\end_layout
+L’obiettivo dell’applicazione è creare un videogioco che implementi il gioco 
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Standard
+battaglia navale
+\begin_inset Quotes erd
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
 Il giocatore deve avere come avversario un’intelligenza artificiale basilare pseudo-AI;
- il gioco deve rispettare delle regole specifiche che si discostano leggermente da quelle classiche garantendo anche un’esperienza chiara e coinvolgente per l’utente.
+ il gioco inoltre deve rispettare delle regole specifiche che si discostano leggermente da quelle classiche ma al contempo deve anche garantire un’esperienza chiara e coinvolgente all’utente.
 \end_layout
 
 \begin_layout Subsubsection
-Requisiti Funzionali
+Requisiti funzionali
 \end_layout
 
 \begin_layout Standard
@@ -234,7 +242,7 @@ Mostrare messaggi informativi e di gioco,
 \end_layout
 
 \begin_layout Subsubsection
-Requisiti Non Funzionali
+Requisiti non funzionali
 \end_layout
 
 \begin_layout Standard
@@ -243,7 +251,7 @@ Oltre alle funzionalità principali,
 \end_layout
 
 \begin_layout Itemize
-Essere accessibile e di facile uso per l'utente.
+Essere di facile uso per l'utente.
 \end_layout
 
 \begin_layout Itemize
@@ -262,12 +270,20 @@ Offrire un’esperienza equa e bilanciata,
 
 \begin_layout Itemize
 Essere estensibile,
- permettendo future modifiche o aggiunte di nuove modalità di gioco.
+ permettendo future modifiche o migliorie.
 \end_layout
 
 \begin_layout Itemize
-Non richiedere connessione a Internet,
- essendo pensata per il gioco in locale.
+Non richiedere connessione a Internet.
+ Il gioco è pensato per giocare 
+\begin_inset Quotes eld
+\end_inset
+
+in locale
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -315,13 +331,13 @@ Diagramma dei casi d'uso
 \end_layout
 
 \begin_layout Standard
-Il diagramma dei casi d’uso rappresenta le principali interazioni tra il giocatore e il sistema di gioco Battaglia Navale.
+Il diagramma dei casi d’uso rappresenta le principali interazioni tra il giocatore e il sistema di gioco battaglia navale.
 \end_layout
 
 \begin_layout Itemize
 
 \series bold
-Attori Coinvolti
+Attori coinvolti
 \end_layout
 
 \begin_deeper
@@ -331,7 +347,7 @@ Attori Coinvolti
 Giocatore.
 
 \shape default
- L'utente umano che interagisce con l’applicazione.
+ L'utente che interagisce con l’applicazione.
 \end_layout
 
 \begin_layout Itemize
@@ -347,7 +363,7 @@ L’intelligenza artificiale che funge da avversario automatico.
 \begin_layout Itemize
 
 \series bold
-Casi d’Uso Principali
+Casi d’uso principali
 \end_layout
 
 \begin_deeper
@@ -431,12 +447,12 @@ Termina partita.
 \begin_layout Itemize
 
 \series bold
-Relazioni tra Attori e Casi d’Uso
+Relazioni tra attori e casi d’uso
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Il Giocatore interagisce con tutte le funzionalità del sistema,
+Il giocatore interagisce con tutte le funzionalità del sistema,
  poiché prende decisioni attive durante la partita.
 \end_layout
 
@@ -472,7 +488,7 @@ Descrizione del dominio
 \end_layout
 
 \begin_layout Standard
-L’applicazione Battaglia Navale si svolge in un campo di gioco diviso in due griglie:
+Il gioco si svolge in un campo di gioco diviso in due griglie:
 \end_layout
 
 \begin_layout Enumerate
@@ -495,20 +511,20 @@ La griglia d’attacco
 
 \begin_layout Standard
 Le navi vengono posizionate all’inizio del gioco e devono rispettare regole specifiche:
- non sovrapporsi,
- essere posizionate interamente nella griglia.
+ non sovrapporsi ed essere posizionate interamente nella griglia.
  
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
 Durante il gioco,
  il giocatore e l’IA si alternano per effettuare attacchi,
  cercando di affondare le navi avversarie.
- Un colpo può colpire una nave o finire in acqua.
-\end_layout
+ 
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-Ogni nave è composta da caselle della griglia,
+Un colpo può colpire una nave o finire in acqua.
+ Ogni nave è composta da caselle della griglia,
  e ogni casella può avere diversi stati:
 \end_layout
 
@@ -538,14 +554,14 @@ Affondata,
 \begin_layout Standard
 Esistono diverse tipologie di proiettili,
  che possono infliggere più o meno danni a una casella.
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
 Il gioco termina quando tutte le navi di un giocatore sono affondate.
 \end_layout
 
 \begin_layout Subsubsection
-Identificazione delle Entità
+Identificazione delle entità
 \end_layout
 
 \begin_layout Standard
@@ -568,7 +584,7 @@ Giocatore
 IA
 \series default
 .
- Gioca contro il giocatore con una strategia variabile.
+ Gioca contro il giocatore umano con una strategia variabile.
 \end_layout
 
 \begin_layout Itemize
@@ -606,7 +622,7 @@ Nave
 Proiettile
 \series default
 .
- Può avere effetti diversi sulla griglia (normale,
+ Può avere effetti diversi sulla griglia (proiettile normale,
  potente,
  speciale).
 \end_layout
@@ -930,9 +946,9 @@ Schema UML del dominio
 \begin_layout Standard
 Questo schema è una rappresentazione concettuale che descrive le entità principali del dominio applicativo e le loro relazioni.
  
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
 Serve a comprendere e modellare il problema prima di iniziare l'implementazione del software.
 \end_layout
 
@@ -959,7 +975,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Schema ULM del dominio
+Schema UML del dominio
 \end_layout
 
 \end_inset
@@ -986,14 +1002,40 @@ ARCHITETTURA
 
 \begin_layout Standard
 L’architettura dell’applicazione Battleship-AI è progettata seguendo il pattern Model-View-Controller (MVC),
- un design pattern che permette di separare la logica di business (Model),
- la gestione dell’interfaccia utente (View) e il controllo del flusso dell’applicazione (Controller).
-\end_layout
+ un design pattern che permette di separare la logica di business 
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Standard
+Model
+\begin_inset Quotes erd
+\end_inset
+
+,
+ la gestione dell’interfaccia utente 
+\begin_inset Quotes eld
+\end_inset
+
+View
+\begin_inset Quotes erd
+\end_inset
+
+ e il controllo del flusso dell’applicazione 
+\begin_inset Quotes eld
+\end_inset
+
+Controller
+\begin_inset Quotes erd
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
 L'uso di MVC permette di mantenere il codice modulare,
  facilitando la manutenzione,
- l'estensibilità e la possibilità di sostituire le interfacce utente (passaggio tra GUI e TUI) senza modificare il modello o il controller.
+ l'estensibilità e la possibilità di sostituire le interfacce utente,
+ ad esempio il passaggio tra GUI e TUI,
+ senza modificare il modello o il controller.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1058,7 +1100,7 @@ Contiene le classi che gestiscono griglie,
 \end_layout
 
 \begin_layout Itemize
-Non conosce né interagisce direttamente con la View.
+Non conosce né interagisce direttamente con la view.
 \end_layout
 
 \begin_layout Standard
@@ -1072,11 +1114,27 @@ Si occupa della rappresentazione dell'interfaccia utente.
 \end_layout
 
 \begin_layout Itemize
-Può essere implementata in modalità grafica (GUI) o testuale (TUI).
+Può essere implementata in modalità grafica 
+\begin_inset Quotes eld
+\end_inset
+
+GUI
+\begin_inset Quotes erd
+\end_inset
+
+ o testuale 
+\begin_inset Quotes eld
+\end_inset
+
+TUI
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-Riceve aggiornamenti dallo stato del Model e li mostra all'utente.
+Riceve aggiornamenti dallo stato del model e li mostra all'utente.
 \end_layout
 
 \begin_layout Standard
@@ -1086,7 +1144,7 @@ Controller
 \end_layout
 
 \begin_layout Itemize
-Gestisce il flusso di gioco e l'interazione tra Model e View.
+Gestisce il flusso di gioco e l'interazione tra model e view.
 \end_layout
 
 \begin_layout Itemize
@@ -1097,11 +1155,11 @@ Contiene la logica di gestione dei turni,
 
 \begin_layout Itemize
 Non implementa logica di gioco,
- ma chiama il Model per eseguire azioni e aggiorna la View di conseguenza.
+ ma chiama il model per eseguire azioni e aggiorna la view di conseguenza.
 \end_layout
 
 \begin_layout Subsubsection
-Ruoli e Interazione tra i Componenti
+Ruoli e interazione tra i componenti
 \end_layout
 
 \begin_layout Minisec
@@ -1268,12 +1326,12 @@ Punto di ingresso:
 \shape italic
 ModelInterface.java
 \shape default
- Definisce l’insieme di operazioni eseguibili sulla logica di gioco e permette al Controller di interagire con il Model senza dipendere dall’implementazione concreta.
+ definisce l’insieme di operazioni eseguibili sulla logica di gioco e permette al controller di interagire con il model senza dipendere dall’implementazione concreta.
  
 \begin_inset Newline newline
 \end_inset
 
-Classi che implementano il Model:
+Classi che implementano il model:
 \end_layout
 
 \begin_layout Itemize
@@ -1294,8 +1352,12 @@ Punto di ingresso:
 \shape italic
 ViewInterface.java
 \shape default
- Definisce un'interfaccia comune per la gestione dell'interfaccia utente.
- Consente di gestire sia l’interfaccia testuale (TUI) che quella grafica (GUI) senza modificare il Controller.
+ definisce un'interfaccia comune per la gestione dell'interfaccia utente.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Consente di gestire sia l’interfaccia testuale che quella grafica senza modificare il controller.
  
 \begin_inset Newline newline
 \end_inset
@@ -1331,8 +1393,12 @@ Punto di ingresso:
 \shape italic
 ControllerInterface.java
 \shape default
- Definisce i metodi fondamentali per la gestione della partita e il posizionamento delle navi.
- Separa la logica del gioco dalla gestione dell’interfaccia.
+ definisce i metodi fondamentali per la gestione della partita e il posizionamento delle navi.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Separa la logica del gioco dalla gestione dell’interfaccia.
  
 \begin_inset Newline newline
 \end_inset
@@ -1347,6 +1413,14 @@ GameController.java
 \shape default
  Implementa ControllerInterface,
  gestisce l’interazione tra Model e View.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1372,17 +1446,17 @@ Nel gioco della battaglia navale,
 \begin_inset Newline newline
 \end_inset
 
-Sono disponibili più tipi di proiettili (standard,
+Sono disponibili più tipi di proiettili:
+ standard,
  potente,
- speciale),
- ognuno con caratteristiche differenti.
+ speciale.
+ Ognuno ha caratteristiche differenti.
  
 \begin_inset Newline newline
 \end_inset
 
 Il problema nasce nel momento in cui la logica di creazione dei proiettili viene ripetuta o dispersa nel codice,
- portando a duplicazioni,
- mancanza di coerenza e difficoltà di manutenzione.
+ portando a duplicazioni e difficoltà di manutenzione.
 \series bold
 
 \begin_inset Newline newline
@@ -1426,14 +1500,22 @@ Creazione diretta nei controller
 \begin_deeper
 \begin_layout Itemize
 Pro:
- semplice da scrivere
+ semplice da scrivere.
 \end_layout
 
 \begin_layout Itemize
 Contro:
  ripetitivo,
  difficile da manutenere,
- rende difficile introdurre nuovi tipi di proiettile
+ rende difficile introdurre nuovi tipi di proiettile senza causare qualche 
+\begin_inset Quotes eld
+\end_inset
+
+casino
+\begin_inset Quotes erd
+\end_inset
+
+ nel codice a lungo andare.
 \end_layout
 
 \end_deeper
@@ -1491,22 +1573,23 @@ makeProjectile(int type,
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 Relazioni
 \end_layout
 
 \begin_layout Itemize
 Il controller,
- sia umano che IA,
+ sia per il giocatore umano che per l'IA,
  chiama ProjectileHandler.makeProjectile() per creare un proiettile.
 \end_layout
 
 \begin_layout Itemize
-ProjectileHandler crea il tipo di proiettile richiesto e restituisce l'oggetto di tipo Projectile corrispondente;
- 
+ProjectileHandler crea il tipo di proiettile richiesto e restituisce l'oggetto di tipo Projectile corrispondente.
 \begin_inset Newline newline
 \end_inset
 
-il metodo può adattarsi alla disponibilità del giocatore,
+Il metodo può adattarsi alla disponibilità del giocatore,
  ad esempio se ha ancora proiettili speciali e decidere dinamicamente il tipo di proiettile da creare.
 \end_layout
 
@@ -1568,10 +1651,11 @@ Il problema
 \begin_inset Newline newline
 \end_inset
 
-Nel gioco della Battaglia Navale,
- il comportamento dell’IA durante il proprio turno varia in base al livello di difficoltà scelto dal giocatore (facile,
- medio,
- difficile).
+Nel gioco della battaglia navale,
+ il comportamento dell’IA varia in base al livello di difficoltà scelto dal giocatore.
+ I livelli previsti sono tre:
+ facile,
+ medio e difficile.
 \begin_inset Newline newline
 \end_inset
 
@@ -1586,8 +1670,15 @@ Questo approccio presentava alcuni problemi:
 \end_layout
 
 \begin_layout Itemize
-Il codice diventava difficile da leggere e mantenere,
- a causa della crescita della complessità interna.
+Il codice diventava difficile da leggere e mantenere e mi sembrava 
+\begin_inset Quotes eld
+\end_inset
+
+brutto e poco elegante
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -1607,9 +1698,14 @@ La soluzione
 \begin_inset Newline newline
 \end_inset
 
-Per risolvere questi problemi è stato adottato il Strategy Pattern,
- un pattern comportamentale che permette di incapsulare algoritmi alternativi (strategie) all’interno di classi distinte,
- intercambiabili a runtime.
+Per risolvere questi problemi è stato adottato il 
+\series bold
+Strategy Pattern
+\series default
+,
+ un pattern comportamentale che permette di incapsulare algoritmi alternativi ovvero le strategie,
+ all’interno di classi distinte,
+ intercambiabili a run-time.
 \begin_inset Newline newline
 \end_inset
 
@@ -1626,9 +1722,10 @@ Struttura della soluzione
 \end_layout
 
 \begin_layout Itemize
-Ogni strategia concreta (EasyStrategy,
+Ogni strategia concreta EasyStrategy,
  MediumStrategy,
- HardStrategy) implementa questa interfaccia e incapsula il proprio algoritmo.
+ HardStrategy,
+ implementa questa interfaccia e incapsula il proprio algoritmo.
 \end_layout
 
 \begin_layout Itemize
@@ -1648,13 +1745,15 @@ Switch-case centralizzato in PcTurnHandler:
 \begin_deeper
 \begin_layout Itemize
 Pro:
- semplice da implementare
+ semplice da implementare.
 \end_layout
 
 \begin_layout Itemize
 Contro:
  codice poco leggibile,
- difficile da estendere
+ difficile da estendere,
+ semplicemente brutto,
+ a istinto non mi piaceva.
 \end_layout
 
 \end_deeper
@@ -1764,8 +1863,33 @@ Gestione del livello di difficoltà dell’intelligenza artificiale
 \end_layout
 
 \begin_layout Standard
+Da non confondersi con il problema precedentemente esposto.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Prima risolvo,
+ spero 
+\begin_inset Quotes eld
+\end_inset
+
+elegantemente
+\begin_inset Quotes erd
+\end_inset
+
+,
+ il problema di scegliere il livello di difficoltà,
+ poi implemento la logica di gioco della IA ai vari livelli di difficoltà scelti precedentemente,
+ qui sotto esposto.
+\begin_inset Newline newline
+\end_inset
+
 
 \series bold
+
+\begin_inset Newline newline
+\end_inset
+
 Il problema
 \series default
 
@@ -1773,7 +1897,7 @@ Il problema
 \end_inset
 
 Nel contesto del gioco della Battaglia Navale,
- il giocatore umano si confronta con un avversario gestito dall’intelligenza artificiale (IA).
+ il giocatore umano si confronta con un avversario gestito dall’intelligenza artificiale o pseudo-tale.
  
 \begin_inset Newline newline
 \end_inset
@@ -1795,7 +1919,8 @@ In particolare,
 \end_layout
 
 \begin_layout Itemize
-Offrire una sfida più accessibile ai principianti.
+Offrire una sfida più accessibile ai principianti o bambini piccoli,
+ nel caso specifico mia figlia di sei anni di età.
 \end_layout
 
 \begin_layout Itemize
@@ -1857,6 +1982,15 @@ Contro:
  esperienza di gioco statica,
  poco scalabile,
  adatta solo a un certo tipo di giocatore.
+ Di IA non ha nemmeno lo 
+\begin_inset Quotes eld
+\end_inset
+
+pseudo-
+\begin_inset Quotes erd
+\end_inset
+
+ davanti alla parola.
 \end_layout
 
 \end_deeper
@@ -1902,7 +2036,7 @@ Implementazione
 
 
 \series bold
-Modalità Facile – Tiro completamente casuale
+Modalità Facile – tiro completamente casuale
 \end_layout
 
 \begin_layout Itemize
@@ -1960,6 +2094,10 @@ Flowchart algoritmo di attacco casuale - livello semplice
 
 \end_layout
 
+\end_inset
+
+
+\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -2029,6 +2167,10 @@ Flowchart algoritmo di attacco ottimizzato - livello medio
 \end_inset
 
 
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2043,16 +2185,11 @@ L’IA analizza l’intera griglia nemica e assegna un punteggio a ciascuna cell
 
 \begin_layout Itemize
 Se trova celle già colpite ma non affondate,
- passa in modalità “target” intelligente e colpisce le celle più promettenti attorno al bersaglio.
+ passa in modalità “target” pseudo-intelligente e colpisce le celle più promettenti attorno al bersaglio.
 \end_layout
 
 \begin_layout Itemize
 La scelta del tipo di proiettile è ottimizzata in base alla probabilità stimata di successo.
-\end_layout
-
-\begin_layout Itemize
-L'approccio adottato trae ispirazione dai primi sistemi esperti,
- che spesso combinavano regole decisionali con valutazioni probabilistiche per gestire l'incertezza e migliorare l'efficacia delle decisioni.
 \end_layout
 
 \begin_layout Itemize
@@ -2067,13 +2204,13 @@ placement H
 alignment document
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename livelloHard.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -2332,7 +2469,11 @@ Battle.java
 notEndingTurnTest()
 \shape default
  Simula un turno in cui il giocatore manca il bersaglio (colpo a vuoto).
- Controlla che:
+ 
+\begin_inset Newline newline
+\end_inset
+
+Controlla che:
 \end_layout
 
 \begin_deeper
@@ -2351,7 +2492,11 @@ Il gioco non sia terminato (isGameOver() deve restituire false).
 endingTurnTest()
 \shape default
  Simula un colpo che affonda l'ultima nave dell’avversario.
- Controlla che:
+ 
+\begin_inset Newline newline
+\end_inset
+
+Controlla che:
 \end_layout
 
 \begin_deeper
@@ -2380,28 +2525,66 @@ METODOLOGIA DI LAVORO
 \begin_layout Standard
 Lo sviluppo del progetto è stato svolto interamente in autonomia,
  senza attività di gruppo.
- La scelta di lavorare da solo ha richiesto un’organizzazione personale efficace e una pianificazione attenta,
- al fine di gestire in modo equilibrato il tempo dedicato all’analisi,
- alla progettazione,
- allo sviluppo e alla fase di test e rifinitura del codice.
+ 
 \begin_inset Newline newline
 \end_inset
 
-Ho adottato una mia personale metodologia di lavoro ispirata a pratiche agili,
- modellata sulle esigenze del mio tempo disponibile.
+La scelta di lavorare da solo ha richiesto un’organizzazione personale ispirata alla 
+\begin_inset Quotes eld
+\end_inset
+
+programmazione agile
+\begin_inset Quotes erd
+\end_inset
+
+,
+ traendo spunto dalla modalità 
+\begin_inset Quotes eld
+\end_inset
+
+extreme programming
+\begin_inset Quotes erd
+\end_inset
+
+ ma riadattandola ad un solo sviluppatore essendo da solo.
+\begin_inset Newline newline
+\end_inset
+
+Ho dovuto modellare il ciclo di sviluppo sulle esigenze del mio tempo disponibile.
  In particolare,
  ho preferito suddividere l’attività settimanale in due momenti distinti:
 \end_layout
 
 \begin_layout Itemize
 Durante la settimana,
- quando avevo a disposizione blocchi di tempo più brevi (in media un’ora),
- mi sono concentrato sullo sviluppo e test di piccole unità funzionali (classi,
+ quando avevo a disposizione blocchi di tempo più brevi,
+ in media un’ora,
+ mi sono concentrato sullo sviluppo e test di piccole unità funzionali quali classi,
  metodi,
- strategie specifiche),
+ strategie specifiche,
  lavorando in modo incrementale e isolato.
- Questa fase è stata utile per sperimentare,
- identificare errori in modo tempestivo e mantenere costante il contatto con il progetto.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Questa fase è stata utile per sperimentare,
+ identificare errori e mantenere costante il contatto con il progetto ovvero non perdermi deconcentrandomi sulla visione d'insieme 
+\begin_inset Quotes eld
+\end_inset
+
+saltando di palo in frasca
+\begin_inset Quotes erd
+\end_inset
+
+ ma completando un pezzo alla volta 
+\begin_inset Quotes eld
+\end_inset
+
+mattone dopo mattone
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -2410,7 +2593,15 @@ Durante il fine settimana,
  all’integrazione dei moduli sviluppati nei giorni precedenti e alla pulizia del codice,
  consolidando la coerenza architetturale ad esempio applicando pattern come MVC,
  Strategy,
- Factory.
+ Factory appena ne 
+\begin_inset Quotes eld
+\end_inset
+
+identificavo
+\begin_inset Quotes erd
+\end_inset
+
+ l'opportunità.
 \end_layout
 
 \begin_layout Standard
@@ -2490,8 +2681,7 @@ Uso di lambda expressions
 \begin_inset Newline newline
 \end_inset
 
-Utilizzate in modo puntuale,
- ad esempio nella scrittura di test unitari per la verifica di eccezioni nel test 
+Utilizzate ad esempio nella scrittura di test unitari per la verifica di eccezioni nel test 
 \shape italic
 GridSquareTest.java
 \shape default
@@ -2607,7 +2797,27 @@ Design dettagliato
 
 \shape italic
 Modalità "Hunt and Target" (livello IA medio)
+\series bold
 \shape default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Preso da:
+ https://towardsdatascience.com/coding-an-intelligent-battleship-agent-bf0064a4b319/
+\begin_inset Newline newline
+\end_inset
+
+ma per la sola parte iniziale dell'articolo.
+ Codice Python non traducibile in Java direttamente.
+ Re-implementato in base a quello che ho capito.
+\end_layout
+
+\end_inset
+
+
+\series default
 :
  implementazione di una strategia dinamica che,
  a seguito di un colpo a segno,
@@ -2619,11 +2829,35 @@ Modalità "Hunt and Target" (livello IA medio)
 
 \shape italic
 Modalità "Pseudo-AI" (livello IA difficile)
+\series bold
 \shape default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Preso spunto come prima da:
+ https://towardsdatascience.com/coding-an-intelligent-battleship-agent-bf0064a4b319/
+\begin_inset Newline newline
+\end_inset
+
+ma per la sola parte del calcolo probabilistico.
+ Codice Python non traducibile in Java direttamente.
+ Re-implementato in base a quello che ho capito.
+\end_layout
+
+\end_inset
+
+
+\series default
 :
  calcolo di un punteggio euristico per ogni cella della griglia in base alla disposizione e agli spazi disponibili,
  simulando un comportamento intelligente.
  Viene poi stimata una probabilità per guidare la scelta del tipo di proiettile.
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \end_body
