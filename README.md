@@ -1,6 +1,6 @@
 # BattleShip AI
 
-BattleShip AI è un progetto Java che implementa il classico gioco "Battaglia Navale" con regole rivisitate ed una forma di pseudo-intelligenza artificiale.  
+BattleShip AI è un progetto Java che implementa il classico gioco "Battaglia Navale" con regole rivisitate ed una forma di pseudo-intelligenza artificiale implementata prendendo spunto dal lavoro di Aydin Schwartz https://towardsdatascience.com/coding-an-intelligent-battleship-agent-bf0064a4b319/.  
 
 ---
 
@@ -79,7 +79,7 @@ src/
 │       ├── Grid.java
 │       ├── GridSquare.java
 │       ├── Player.java
-│       ├── Projectile.java        # Classe astratta
+│       ├── Projectile.java        
 │       ├── PowerProjectile.java
 │       ├── SpecialProjectile.java
 │       ├── StandardProjectile.java
@@ -92,11 +92,11 @@ src/
 │       ├── GridPanel.java
 │       └── Messages.java
 ├── test
-│   └── (JUnit test classes, esclusi dalla compilazione normale)
+│   └── (JUnit test, esclusi dalla compilazione via script)
 ├── compilami.sh     # Script per la compilazione automatica
 docs/
 ├── index.html       # Entry point della documentazione JavaDoc
-└── relazione.pdf    # Relazione tecnica descrittiva del progetto
+└── relazione.pdf    # Relazione del progetto
 ```
 
 ---
@@ -139,7 +139,7 @@ java -cp bin main.Main
 
 Sono disponibili i seguenti documenti utili nella cartella `docs/`:
 
-- **JavaDoc Generata** – Documentazione tecnica automatica delle classi.
+- **JavaDoc** – Documentazione delle classi.
 
 - **Relazione del Progetto** – Documento descrittivo del progetto, delle scelte progettuali e delle implementazioni, relazione finale per l'esame di Programmazione e Modellazione ad Oggetti.
 
