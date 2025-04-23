@@ -101,7 +101,7 @@ docs/
 
 ---
 
-## Come Compilare ed Eseguire
+## Come compilare ed eseguire
 
 Puoi compilare il progetto usando lo script `compilami.sh` che ho fornito:
 
